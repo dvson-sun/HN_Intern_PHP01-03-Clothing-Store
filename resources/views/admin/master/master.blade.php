@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html>
-@include("admin/master/layouts/head")
+
+<head>
+	@include('admin.master.layouts.head')
+</head>
 
 <body>
-	<!-- header -->
-	@include("admin/master/layouts/header")
-	<!-- sidebar left-->
-	@include("admin/master/layouts/sidebar")
-	<!--/. end sidebar left-->
-	@yield("main");
+	@include('admin.master.layouts.header')
+	<div class="row">
+		<div class="col-2">
+			@include('admin.master.layouts.sidebar')
+		</div>
+		<div class="col-10">
+			@yield('content')
+		</div>
+	</div>
 </body>
 
 </html>

@@ -4,10 +4,10 @@
 	<title>@yield("title")</title>
 	<!-- css -->
     <base href="/admin/"/>
-	<link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+	<link rel="stylesheet" href="{{ asset('admin/css/styles.css') }}">
 	<link rel="stylesheet" href="{{ asset('bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('bower_components/Font-Awesome/css/all.min.css') }}">
     <script src="{{ asset('bower_components/jquery/dist/jquery.min.js')}}" type="text/javascript"></script>
 	<!--Icons-->
-	<script src="{{ asset('js/lumino.glyphs.js') }}"></script>
+	<script src="{{ asset('admin/js/lumino.glyphs.js') }}"></script>
 </head>
