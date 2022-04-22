@@ -232,4 +232,9 @@ return [
 
     ],
 
+    'limit' => [
+        'featured' => 4,
+        'new' => 8,
+    ]
+
 ];
