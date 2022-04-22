@@ -11,7 +11,7 @@
     "First Name": "Họ",
     "Last Name": "Tên",
     "Vietnamese": "Tiếng Việt",
-    "English": "Tiếng Anh",
+    "English": "English",
     "Already registered?": "Đã đăng ký?",
     "Address": "Địa chỉ",
     "Email Address": "Địa Chỉ Email",
@@ -71,5 +71,14 @@
     "No": "Không",
     "Stocking": "Còn hàng",
     "Out of stock": "Hết hàng",
-    "is_eatured ?": "Sản phẩm có nổi bật không?"
+    "is_Featured ?": "Sản phẩm có nổi bật không?",
+    "Phone": "Số điện thoại",
+    "Role": "Quyền",
+    "List Users": "Danh sách người dùng",
+    "Update success": "Cập nhật thành công",
+    "Active": "Kích hoạt",
+    "Block": "Chặn",
+    "User": "Người dùng",
+    "Update": "Cập nhật",
+    "Back": "Quay lại"
 }
