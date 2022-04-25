@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    const PAGINATION_NUMBER = 5;
+    const PAGINATION_NUMBER = 10;
 
     protected $user;
 

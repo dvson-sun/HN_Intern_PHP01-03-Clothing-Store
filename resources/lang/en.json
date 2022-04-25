@@ -70,5 +70,20 @@
     "No": "No",
     "Stocking": "Stocking",
     "Out of stock": "Out of stock",
-    "is_Featured": "Is Featured?"
+    "is_Featured": "Is Featured?",
+    "Phone": "Phone Number",
+    "Role": "Role",
+    "List Users": "List Users",
+    "Update success": "Update Success",
+    "Active": "Active",
+    "Block": "Block",
+    "User": "User",
+    "Update": "Update",
+    "Back": "Back",
+    "Add": "Add",
+    "Name": "Name",
+    "Parent": "Parent Category",
+    "List Category": "List Category",
+    "Category Management": "Category Management",
+    "cat_name" : "Category Name"
 }
