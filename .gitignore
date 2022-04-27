@@ -17,4 +17,5 @@ yarn-error.log
 /public/css
 /public/js
 /public/admin
-/public/upload
+/public/store
+/public/uploads
