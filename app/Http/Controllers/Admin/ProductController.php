@@ -3,15 +3,19 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateProductRequest;
+use App\Http\Requests\EditProductRequest;
 use App\Models\Category;
+use App\Models\Image;
 use App\Models\Product;
+use App\Slug\Slug;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
     const PAGINATION_NUMBER = 10;
 
-    protected function findproductById($id)
+    protected function findProductById($id)
     {
         return Product::findOrFail($id);
     }
@@ -23,8 +27,8 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::with('images')
-                ->orderBy('id', 'DESC')
-                ->paginate(self::PAGINATION_NUMBER);
+            ->orderBy('id', 'DESC')
+            ->paginate(self::PAGINATION_NUMBER);
 
         return view('admin.products.listproduct')->with(compact('products'));
     }
@@ -47,9 +51,37 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateProductRequest $request)
     {
-        //
+        $data = [];
+        $files = $request->file('images');
+        if ($request->hasFile('images')) {
+            Product::create([
+                'name' => $request->name,
+                'code' => $request->code,
+                'slug' => Slug::getSlug($request->name),
+                'price' => $request->price,
+                'description' => $request->description,
+                'is_featured' => $request->is_featured,
+                'status' => $request->status,
+                'category_id' => $request->category_id,
+            ]);
+
+            $product = Product::select('id', 'slug')->where('name', '=', $request->name)->first();
+
+            foreach ($files as $key => $file) {
+                $imageName = $product->slug . '-' . time() . '.' . $file->extension();
+                $file->move(public_path('uploads'), $imageName);
+                $data[$key] = [
+                    'product_id' => $product->id,
+                    'name' => $imageName,
+                ];
+            }
+
+            Image::insert($data);
+        }
+
+        return redirect()->route('admin.products.index')->with('success', __('Add Success'));
     }
 
     /**
@@ -71,7 +103,11 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.products.editproduct');
+        $product = $this->findproductById($id);
+        $category_id = $product->category_id;
+        $parentCategories = Category::where('parent', 0)->get();
+
+        return view('admin.products.editproduct')->with(compact('category_id', 'product', 'parentCategories'));
     }
 
     /**
@@ -81,9 +117,35 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EditProductRequest $request, $id)
     {
-        //
+        $product = Product::find($id);
+        $data = [];
+        $files = $request->file('images');
+        $product->update([
+            'name' => $request->name,
+            'code' => $request->code,
+            'slug' => Slug::getSlug($request->name),
+            'description' => $request->description,
+            'price' => $request->price,
+            'is_featured' => $request->is_featured,
+            'status' => $request->status,
+            'category_id' => $request->category_id,
+        ]);
+        //Insert Images
+        if ($request->hasFile("images")) {
+            foreach ($files as $key => $file) {
+                $imageName = $product->slug.'-'.time().'.'.$file->extension();
+                $file->move(public_path('images'), $imageName);
+                $data[$key] = [
+                    'product_id' => $product->id,
+                    'name' => $imageName,
+                ];
+            }
+            Image::insert($data);
+        }
+
+        return redirect()->route('admin.products.index')->with('success', 'Edit Success');
     }
 
     /**

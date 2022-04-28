@@ -8,9 +8,9 @@
             <div class="panel panel-primary">
                 <div class="panel-body">
                     @if ($message = Session::get('success'))
-                    <div class="alert alert-success">
-                        <p>{{ __($message) }}</p>
-                    </div>
+                        <div class="alert alert-success">
+                            <p>{{ __($message) }}</p>
+                        </div>
                     @endif
                     <div class="bootstrap-table">
                         <div class="table-responsive">
@@ -27,37 +27,36 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-
                                     @foreach( $products as $key => $product)
-                                    <tr>
-                                        <td>{{ ($products->currentpage() - 1) * $products->perpage() + $key + 1 }}</td>
-                                        <td>
-                                            <div class="row">
-                                                <div class="col-md-3"><img src="../uploads/{{$product->images->first()['name']}}" alt="Áo đẹp" width="100px" class="thumbnail"></div>
-                                                <div class="col-md-9">
-                                                    <p><strong>{{ __('Code') }}: {{ $product->code }}</strong></p>
-                                                    <p>{{ __('Name') }}: {{ $product->name }}</p>
+                                        <tr>
+                                            <td>{{ ($products->currentpage() - 1) * $products->perpage() + $key + 1 }}</td>
+                                            <td>
+                                                <div class="row">
+                                                    <div class="col-md-3"><img src="../uploads/{{$product->images->first()['name']}}" alt="Áo đẹp" width="100px" class="thumbnail"></div>
+                                                    <div class="col-md-9">
+                                                        <p><strong>{{ __('Code') }}: {{ $product->code }}</strong></p>
+                                                        <p>{{ __('Name') }}: {{ $product->name }}</p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td> {{ number_format($product->price) }} VND</td>
-                                        <td>
-                                            @if ($product->status == 1)
-                                            <a class="btn btn-success" role="button">{{ __('Stocking') }}</a>
-                                            @else
-                                            <a class="btn btn-danger" role="button">{{ __('Out of Stock') }}</a>
-                                            @endif
-                                        </td>
-                                        <td>{{ $product->category->name }}</td>
-                                        <td>
-                                            <a href="{{ route('admin.products.edit', $product->id) }}" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> {{ __('Edit') }}</a>
-                                            <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" id="btn-delete" class="btn btn-danger mt-3"> <i class="fa fa-remove" aria-hidden="true"></i> {{__('Delete')}}</button>
-                                            </form>
-                                        </td>
-                                    </tr>
+                                            </td>
+                                            <td> {{ number_format($product->price) }} VND</td>
+                                            <td>
+                                                @if ($product->status == 1)
+                                                    <a class="btn btn-success" role="button">{{ __('Stocking') }}</a>
+                                                @else
+                                                    <a class="btn btn-danger" role="button">{{ __('Out of Stock') }}</a>
+                                                @endif
+                                            </td>
+                                            <td>{{ $product->category->name }}</td>
+                                            <td>
+                                                <a href="{{ route('admin.products.edit', $product->id) }}" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> {{ __('Edit') }}</a>
+                                                <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" id="btn-delete" class="btn btn-danger mt-3"> <i class="fa fa-remove" aria-hidden="true"></i> {{__('Delete')}}</button>
+                                                </form>
+                                            </td>
+                                        </tr>
                                     @endforeach
                                 </tbody>
                             </table>
