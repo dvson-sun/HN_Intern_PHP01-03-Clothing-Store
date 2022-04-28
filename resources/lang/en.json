@@ -85,5 +85,16 @@
     "Parent": "Parent Category",
     "List Category": "List Category",
     "Category Management": "Category Management",
-    "cat_name" : "Category Name"
+    "cat_name" : "Category Name","Cart": "Giỏ hàng",
+    "Shop": "Shop",
+    "Checkout": "Checkout",
+    "About" : "About Us",
+    "Contact": "Contact",
+    "Account": "Account",
+    "Search": "Search",
+    "Language": "Language",
+    "Featured Product": "Featured Product",
+    "featured_prd_description" : "These are the most popular products in 2022",
+    "New Product": "New Product",
+    "new_prd_description" : "These are the new products of 2022"
 }

@@ -86,5 +86,17 @@
     "Parent": "Danh mục cha",
     "List Category": "Danh sách danh mục sản phẩm",
     "Category Management": "Quản lý danh mục",
-    "cat_name": "Tên danh mục"
+    "cat_name": "Tên danh mục",
+    "Cart": "Giỏ hàng",
+    "Shop": "Cửa hàng",
+    "Checkout": "Thanh toán",
+    "About" : "Về chúng tôi",
+    "Contact": "Liên hệ",
+    "Account": "Tài khoản",
+    "Search": "Tìm kiếm",
+    "Language": "Ngôn ngữ",
+    "Featured Product": "Sản phẩm nổi bật",
+    "featured_prd_description": "Đây là những sản phẩm được ưa chuộng nhất năm 2022",
+    "New Product": "Sản phẩm mới",
+    "new_prd_description": "Đây là những sản phẩm mới nhất năm 2022"
 }
