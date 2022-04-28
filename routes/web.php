@@ -39,3 +39,5 @@ Route::prefix('admin')->name('admin.')->middleware('checkAdmin')->group(function
     });
     Route::resource('categories', CategoryController::class);
 });
+
+//
