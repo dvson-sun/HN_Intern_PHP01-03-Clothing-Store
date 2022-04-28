@@ -80,5 +80,11 @@
     "Block": "Chặn",
     "User": "Người dùng",
     "Update": "Cập nhật",
-    "Back": "Quay lại"
+    "Back": "Quay lại",
+    "Add": "Thêm",
+    "Name": "Tên",
+    "Parent": "Danh mục cha",
+    "List Category": "Danh sách danh mục sản phẩm",
+    "Category Management": "Quản lý danh mục",
+    "cat_name": "Tên danh mục"
 }
