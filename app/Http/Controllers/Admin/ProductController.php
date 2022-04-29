@@ -3,10 +3,18 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    const PAGINATION_NUMBER = 10;
+
+    protected function findproductById($id)
+    {
+        return Product::findOrFail($id);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +22,11 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('admin.products.listproduct');
+        $products = Product::with('images')
+                ->orderBy('id', 'DESC')
+                ->paginate(self::PAGINATION_NUMBER);
+
+        return view('admin.products.listproduct')->with(compact('products'));
     }
 
     /**
@@ -24,7 +36,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('admin.products.addproduct');
+        $parentCategories = Category::where('parent', 0)->get();
+
+        return view('admin.products.addproduct')->with(compact('parentCategories'));
     }
 
     /**
@@ -80,6 +94,9 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = $this->findproductById($id);
+        $product->delete();
+
+        return redirect()->route('admin.products.index')->with('success', 'Delete success');
     }
 }

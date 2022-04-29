@@ -13,11 +13,14 @@
                         <div class="col-md-8">
                             <div class="form-group">
                                 <label>{{ __('Category') }}</label>
-                                <select name="category" class="form-control">
-                                    <option value='1' selected>{{ __('Man') }}</option>
-                                    <option value='3'>---| {{ __('Man Jacket') }}</option>
-                                    <option value='2'> {{ __('Women') }}</option>
-                                    <option value='4'>---| {{ __('Women Jacket') }}</option>
+                                <select class="form-control" name="" id="">
+                                    @foreach ($parentCategories as $category)
+                                        <option value="{{$category->id}}">{{ $category->name }} </br> </option>
+                                        @if (count($category->subcategory))
+                                            @php $char = '|--' @endphp
+                                            @include ('admin.categories.subCategoryList', ['subcategories' => $category->subcategory, 'char' => $char])
+                                        @endif
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
