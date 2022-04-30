@@ -120,5 +120,7 @@
     "description.required": "Decription is required !",
     "images.required": "Images is required !",
     "Edit Success": "Edit Success!",
-    "Edit Product": "Edit Product"
+    "Edit Product": "Edit Product",
+    "parent.required": "Category parent is required",
+    "parent.exists": "Categort parent does not exist" 
 }

@@ -20,15 +20,22 @@
                                 <div class="alert alert-danger">{{ __($error) }}</div>
                             @endforeach
                         @endif
-                        <form action="{{ route('admin.categories.store') }}" method="POST">
+                        <form action="{{ route('admin.categories.update', $category_id) }}" method="POST">
                             @csrf
+                            @method('PUT')
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="">{{ __('Parent') }}:</label>
-                                    <select class="form-control" name="parent" >
-                                        <option value="0"> --- </br></option>
+                                    <select class="form-control" name="parent">
+                                        @if (isset($category_id)) 
+                                            <option @if($category_id == 0) selected @endif value="0"> --- </br></option>
+                                        @endif
                                         @foreach ($parentCategories as $category)
-                                            <option value="{{$category->id}}">{{ $category->name }} </br> </option>
+                                            @if (isset($category_id))
+                                                <option @if($category_id == $category->id) selected @endif value="{{$category->id}}"> {{$category->name}}</br></option>
+                                            @else
+                                                <option value="{{$category->id}}"> {{$category->name}}</br></option>
+                                            @endif
                                             @if (count($category->subcategory))
                                                 @php $char = '|--' @endphp
                                                 @include ('admin.categories.subCategoryList', ['subcategories' => $category->subcategory, 'char' => $char])
@@ -38,9 +45,9 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="">{{ __('cat_name') }}:</label>
-                                    <input type="text" class="form-control" name="name" placeholder="{{ __('cat_name') }}">
+                                    <input type="text" class="form-control" name="name" value="{{$cat->name}}">
                                 </div>
-                                <button type="submit" class="btn btn-primary mt-3"><i class="fa fa-plus"></i> {{ __('Add') }} </button>
+                                <button type="submit" class="btn btn-primary mt-3"><i class="fa fa-plus"></i> {{ __('Edit') }} </button>
                             </div>
                         </form>
                     </div>
