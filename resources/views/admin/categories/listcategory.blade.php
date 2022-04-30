@@ -43,7 +43,11 @@
                                         @endif
                                         <td>
                                             <a href="{{ route('admin.categories.edit', $category->id) }}" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> {{ __('Edit') }}</a>
-                                            <a href="#" class="btn btn-danger"><i class="fa fa-remove" aria-hidden="true"></i> {{ __('Delete') }}</a>
+                                            <form action="{{ route('admin.categories.destroy', $category->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" id="btn-delete" class="btn btn-danger mt-2"> <i class="fa fa-remove" aria-hidden="true"></i> {{__('Delete')}}</button>
+                                            </form>
                                         </td>
                                     </tr>
                                     @endforeach
