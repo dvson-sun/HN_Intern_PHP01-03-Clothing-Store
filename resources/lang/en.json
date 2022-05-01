@@ -154,5 +154,13 @@
     "need_login": "You must be login to use this feature",
     "user_lock": "Your account has been locked",
     "login_fail": "Login failed",
-    "cart_check": "There are no products in your cart!"
+    "cart_check": "There are no products in your cart!",
+    "Write Comment": "Write Comment",
+    "input_comment": "Write your comment ...",
+    "Comments": "Comments",
+    "Comment": "Comment",
+    "content.required": "Please write comments",
+    "content.string": "Comment is invalid",
+    "content.min": "The content must be at least 2 characters",
+    "content.max": "Password length must be less than 255 characters"
 }
