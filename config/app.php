@@ -237,6 +237,22 @@ return [
     'limit' => [
         'featured' => 4,
         'new' => 8,
+        'recommend' => 4,
+        'category'=> 8,
+        'shop' => 6,
+    ],
+
+    'size' => [
+        's' => 's',
+        'm' => 'm',
+        'l' => 'l',
+        'xl' => 'xl',
+        'xxl' => 'xxl',
+    ],
+
+    'status' => [
+        'stocking' => 1,
+        'outOfStock' => 0,
     ],
     
     'is_featured' => 1,
@@ -245,4 +261,6 @@ return [
         'true' => 1,
         'false' => 0,
     ],
+    
+    'zero' => 0,
 ];

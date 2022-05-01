@@ -5,12 +5,12 @@
             <div class="container">
                 <div class="row">
                     <div class="col-2">
-                        <div id="colorlib-logo"><a href="index.html"><img src="{{ asset('store/images/logo.png') }}" alt="" ></a></div>
+                        <div id="colorlib-logo"><a href="{{ route('home') }}"><img src="{{ asset('store/images/logo.png') }}" alt="" ></a></div>
                     </div>
                     <div class="col-10 text-right menu-1">
                         <ul>
-                            <li class="active"><a href="#">{{ __('Home') }}</a></li>
-                            <li><a href="shop.html">{{ __('Search') }}</a></li>
+                            <li class="active"><a href="{{ route('home') }}">{{ __('Home') }}</a></li>
+                            <li><a href="{{ route('product.shop') }}">{{ __('Search') }}</a></li>
                             <li><a href="about.html">{{ __('About')}}</a></li>
                             <li><a href="contact.html">{{ __('Contact')}}</a></li>
                             <li class="has-dropdown">
@@ -38,7 +38,7 @@
                                 @else
                                     <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">{{ __('Login')}} /</a>
                                     @if (Route::has('register'))
-                                        <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">{{ __('Register')}} </a>
+                                        <a href="{{ route('register') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">{{ __('Register')}} </a>
                                     @endif
                                 @endauth
                             @endif
@@ -52,7 +52,7 @@
 <aside id="colorlib-hero">
     <div class="flexslider">
         <ul class="slides">
-            <li style="background-image: url(store/images/bg-03.jpg);">
+            <li class="slide-1">
                 <div class="overlay"></div>
                 <div class="container-fluid">
                     <div class="row">
@@ -69,7 +69,7 @@
                     </div>
                 </div>
             </li>
-            <li style="background-image: url(store/images/bg-01.jpg);">
+            <li  class="slide-2">
                 <div class="overlay"></div>
                 <div class="container-fluid">
                     <div class="row">
@@ -86,7 +86,7 @@
                     </div>
                 </div>
             </li>
-            <li style="background-image: url(store/images/bg-02.jpg);">
+            <li  class="slide-3">
                 <div class="overlay"></div>
                 <div class="container-fluid">
                     <div class="row">

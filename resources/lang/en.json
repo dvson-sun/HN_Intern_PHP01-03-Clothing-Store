@@ -122,5 +122,17 @@
     "Edit Success": "Edit Success!",
     "Edit Product": "Edit Product",
     "parent.required": "Category parent is required",
-    "parent.exists": "Categort parent does not exist" 
+    "parent.exists": "Categort parent does not exist",
+    "For man": "For Man",
+    "For Woman": "For Women",
+    "Women's Shirt": "Women's Shirt",
+    "Man's Trousers": "Man's Trousers",
+    "Price Range": "Price Range",
+    "From": "From",
+    "To": "To",
+    "Quantity": "Quantity",
+    "Choose Size": "Choose Size",
+    "Add to cart": "Add to cart",
+    "Guide to choose size": "Guide to choose size",
+    "Recommend": "Recommend"
 }
