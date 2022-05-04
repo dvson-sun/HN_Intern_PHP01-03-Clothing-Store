@@ -6,7 +6,9 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LangController;
+use App\Http\Controllers\Store\ProductStoreController;
 use App\Http\Controllers\Store\SiteController;
+use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -40,4 +42,10 @@ Route::prefix('admin')->name('admin.')->middleware('checkAdmin')->group(function
 
 Route::group(['prefix' => '/'], function () {
     Route::get('/home', [SiteController::class, 'index'])->name('home');
+    Route::prefix('product')->name('product.')->group(function () {
+        Route::get('/', [ProductStoreController::class, 'shop'])->name('shop');
+        Route::get('/search', [ProductStoreController::class, 'filter'])->name('search');
+        Route::get('/{slug}.html', [ProductStoreController::class, 'detail'])->name('detail');
+        Route::get('/category/{slug}.html', [ProductStoreController::class, 'category'])->name('category');
+    });
 });

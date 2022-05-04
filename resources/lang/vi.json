@@ -126,5 +126,17 @@
     "Edit Success": "Sửa thành công!",
     "Edit Product": "Sửa sản phẩm",
     "parent.required": "Danh mục cha không được để trống",
-    "parent.exists": "Danh mục cha không tồn tại" 
+    "parent.exists": "Danh mục cha không tồn tại",
+    "For man": "Cho nam",
+    "For Woman": "Cho nữ",
+    "Women's Shirt": "Áo nữ",
+    "Man's Trousers": "Quần nam",
+    "Price Range": "Khoảng giá",
+    "From": "Từ",
+    "To": "Đến",
+    "Quantity": "Số lượng",
+    "Choose Size": "Chọn kích thước",
+    "Add to cart": "Thêm vào giỏ hàng",
+    "Guide to choose size": "Hướng dẫn chọn kích thước",
+    "Recommend": "Gợi ý"
 }
