@@ -124,5 +124,7 @@
     "description.required": "Thông tin mô tả sản phẩm không được để trống !",
     "images.required": "Ảnh không được để trống !",
     "Edit Success": "Sửa thành công!",
-    "Edit Product": "Sửa sản phẩm"
+    "Edit Product": "Sửa sản phẩm",
+    "parent.required": "Danh mục cha không được để trống",
+    "parent.exists": "Danh mục cha không tồn tại" 
 }
