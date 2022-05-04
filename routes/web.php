@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LangController;
+use App\Http\Controllers\Store\CartController;
 use App\Http\Controllers\Store\ProductStoreController;
 use App\Http\Controllers\Store\SiteController;
 use App\Models\Product;
@@ -47,5 +48,16 @@ Route::group(['prefix' => '/'], function () {
         Route::get('/search', [ProductStoreController::class, 'filter'])->name('search');
         Route::get('/{slug}.html', [ProductStoreController::class, 'detail'])->name('detail');
         Route::get('/category/{slug}.html', [ProductStoreController::class, 'category'])->name('category');
+    });
+
+    Route::prefix('cart')
+    ->name('cart.')
+    ->middleware('checkLogin')
+    ->controller(CartController::class)
+    ->group(function () {
+        Route::get('/', 'cart')->name('showCart');
+        Route::post('/addToCart', 'addToCart')->name('addToCart');
+        Route::get('/update/{id}/{qty}', 'update')->name('update');
+        Route::get('/delete/{id}', 'delete')->name('delete');
     });
 });

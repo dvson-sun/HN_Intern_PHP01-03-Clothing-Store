@@ -20,7 +20,7 @@
                                     <li><a href="{!! route('language', ['vi']) !!}"> {{__('Vietnamese')}}</a></li>
                                 </ul>
                             </li>
-                            <li><a href="cart.html"><i class="icon-shopping-cart"></i> {{ __('Cart')}} [0]</a></li>
+                            <li><a href="{{route('cart.showCart')}}"><i class="icon-shopping-cart"></i> {{ __('Cart')}} [{{Cart::count()}}]</a></li>
                             @if (Route::has('login'))
                                 @auth
                                 <li class="has-dropdown">

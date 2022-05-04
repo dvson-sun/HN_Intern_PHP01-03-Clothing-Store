@@ -9,72 +9,73 @@
                 <div class="product-detail-wrap">
                     <div class="row">
                         <div class="col-md-5">
-                            <div class="product-entry">
-                                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-                                    <div class="carousel-inner">
-                                        @foreach ($detail->images as $key => $image)
+                            <form action="{{ route('cart.addToCart') }}" method="POST">
+                                @csrf
+                                <div class="product-entry">
+                                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                                        <div class="carousel-inner">
+                                            @foreach ($detail->images as $key => $image)
                                             <div class="carousel-item @if ($key == config('app.zero')) active @endif">
                                                 <img class="d-block" src="../uploads/{{$image->name}}" alt="Ảnh sản phẩm">
                                             </div>
-                                        @endforeach
+                                            @endforeach
+                                        </div>
+                                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Previous</span>
+                                        </a>
+                                        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Next</span>
+                                        </a>
                                     </div>
-                                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                        <span class="sr-only">Previous</span>
-                                    </a>
-                                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                        <span class="sr-only">Next</span>
-                                    </a>
                                 </div>
-                            </div>
                         </div>
                         <div class="col-md-7">
-                            <form action="" method="GET">
-                                <div class="desc">
-                                    <h3>{{ __('Name')}}: {{$detail->name}}</h3>
-                                    <h5>{{ __('Code')}}: {{$detail->code}}</h5>
-                                    <p class="price">
-                                    <h5>{{ __('Price')}}: {{ number_format($detail->price)}} VND</h5>
-                                    </p>
-                                    <h5> {{ __('Status')}}:
-                                        @if ($detail->status == config('app.status.stocking'))
-                                            <a class="btn btn-success mt-2">{{ __('Stocking') }}</a>
-                                        @else
-                                            <a class="btn btn-danger mt-2">{{ __('Out of Stock') }}</a>
-                                        @endif
-                                    </h5>
-                                    <h5>{{ __('Description') }}</h5>
-                                    <p class="description">
-                                        {{$detail->description}}
-                                    </p>
-                                    <h5> {{ __('Quantity')}}:
+                            <div class="desc">
+                                <h3>{{ __('Name')}}: {{$detail->name}}</h3>
+                                <h5>{{ __('Code')}}: {{$detail->code}}</h5>
+                                <p class="price">
+                                <h5>{{ __('Price')}}: {{ number_format($detail->price)}} VND</h5>
+                                </p>
+                                <h5> {{ __('Status')}}:
+                                    @if ($detail->status == config('app.status.stocking'))
+                                    <a class="btn btn-success mt-2">{{ __('Stocking') }}</a>
+                                    @else
+                                    <a class="btn btn-danger mt-2">{{ __('Out of Stock') }}</a>
+                                    @endif
+                                </h5>
+                                <h5>{{ __('Description')}}</h5>
+                                <p class="description">
+                                    {{$detail->description}}
+                                </p>
+                                <h5> {{ __('Quantity')}}:
                                     <div class="row">
                                         <div class="col-md-4 quantity-form">
                                             <input name="quantity" type="number" class="form-control form-blue quantity" value="1" min="1" max="100">
                                         </div>
                                     </div>
-                                    <h5 class="mb-0">{{ __('Choose Size') }}</h5>
-                                    <select class="size-select">
+                                    <h5 class="mb-0">{{ __('Choose Size')}}</h5>
+                                    <select class="size-select" name="size">
                                         @foreach ( $sizes as $item)
-                                            @if ( $item->size == config('app.size.s'))
-                                                <option value="1">S</option>
-                                            @elseif ($item->size == config('app.size.m'))
-                                                <option value="2">M</option>
-                                            @elseif ($item->size == config('app.size.l'))
-                                                <option value="3">L</option>
-                                            @elseif ($item->size == config('app.size.xl'))
-                                                <option value="4">XL</option>
-                                            @else
-                                                <option value="5">XXL</option>
-                                            @endif
+                                        @if ( $item->size == config('app.size.s'))
+                                        <option value="s">S</option>
+                                        @elseif ($item->size == config('app.size.m'))
+                                        <option value="m">M</option>
+                                        @elseif ($item->size == config('app.size.l'))
+                                        <option value="l">L</option>
+                                        @elseif ($item->size == config('app.size.xl'))
+                                        <option value="xl">XL</option>
+                                        @else
+                                        <option value="xxl">XXL</option>
+                                        @endif
                                         @endforeach
                                     </select>
-                                    <input type="hidden" name="id_product" value="1">
+                                    <input type="hidden" name="id" value="{{$detail->id}}">
                                     <p><button class="btn btn-primary btn-addtocart mt-3" type="submit"> {{ __('Add to cart')}}</button></p>
-                                </div>
-                            </form>
+                            </div>
                         </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -123,5 +124,4 @@
         </div>
     </div>
 </div>
-<!-- end main -->
 @endsection
