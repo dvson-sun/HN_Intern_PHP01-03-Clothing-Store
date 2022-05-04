@@ -240,4 +240,9 @@ return [
     ],
     
     'is_featured' => 1,
+
+    'status' => [
+        'true' => 1,
+        'false' => 0,
+    ],
 ];
