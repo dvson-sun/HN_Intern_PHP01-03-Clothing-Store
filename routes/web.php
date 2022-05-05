@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\HomeController;
@@ -39,6 +40,11 @@ Route::prefix('admin')->name('admin.')->middleware('checkAdmin')->group(function
         Route::put('/{id}', 'update')->name('update');
     });
     Route::resource('categories', CategoryController::class);
+    Route::prefix('orders')->name('orders.')->controller(OrderController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/show/{id}', 'show')->name('show');
+        Route::put('/update/{id}', 'update')->name('update');
+    });
 });
 
 Route::group(['prefix' => '/'], function () {

@@ -70,12 +70,8 @@
 							</ul>
 						</li>
 						<li><span>{{ __('Total')}} {{ __('Orders')}}</span> <span>₫ {{$priceTotal}}</span></li>
-					</ul>
-				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<p><button type="submit" class="btn btn-primary">{{ __('Payment')}}</button></p>
-					</div>
+					</ul>				
+					<p align="right"><button type="submit" class="btn btn-primary">{{ __('Payment')}}</button></p>
 				</div>
 				@csrf
 				</form>

@@ -12,5 +12,8 @@
         <li><a href="{{ route('admin.products.index') }}"><svg class="glyph stroked bag">
                     <use xlink:href="#stroked-bag"></use>
                 </svg> {{ __('Products') }} </a></li>
+        <li><a href="{{ route('admin.orders.index') }}"><svg class="glyph stroked bag">
+                    <use xlink:href="#stroked-bag"></use>
+                </svg> {{ __('Orders') }} </a></li>
     </ul>
 </div>
