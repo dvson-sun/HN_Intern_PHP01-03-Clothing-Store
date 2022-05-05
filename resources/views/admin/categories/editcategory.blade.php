@@ -20,7 +20,7 @@
                                 <div class="alert alert-danger">{{ __($error) }}</div>
                             @endforeach
                         @endif
-                        <form action="{{ route('admin.categories.update', $category_id) }}" method="POST">
+                        <form action="{{ route('admin.categories.update', $cat->id) }}" method="POST">
                             @csrf
                             @method('PUT')
                             <div class="col-12">
