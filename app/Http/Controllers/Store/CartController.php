@@ -106,6 +106,7 @@ class CartController extends Controller
         $order_products = OrderProduct::where('order_id', $order->id)
             ->get();
         $products = $order->products;
+        Cart::destroy();
 
         return view("store.cart.complete")->with(compact('order', 'order_products', 'products'));
     }
