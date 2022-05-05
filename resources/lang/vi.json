@@ -179,5 +179,17 @@
     "address.required": "Địa chỉ không được bỏ trống",
     "address.string": "Địa chỉ không đúng định dạng",
     "address.min": "Địa chỉ không được nhỏ hơn 3 ký tự",
-    "address.max": "Địa chỉ không được lớn hơn 555 ký tự"
+    "address.max": "Địa chỉ không được lớn hơn 555 ký tự",
+    "Orders List": "Danh sách đơn hàng",
+    "Processing": "Đang xử lý",
+    "Delivering": "Đang giao",
+    "Rejected": "Từ chối",
+    "Detail": "Chi tiết",
+    "Order Detail": "Chi tiết đơn hàng",
+    "Information customer": "Thông tin khách hàng",
+    "Note": "Ghi chú",
+    "time_order": "Ngày đặt",
+    "time_update": "Cập nhật lần cuối",
+    "Edit Status": "Thay đổi trạng thái đơn hàng",
+    "Submit": "Xác nhận"
 }

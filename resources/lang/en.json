@@ -175,5 +175,17 @@
     "address.required": "Address is required",
     "address.string": "Address is invalid",
     "address.min": "Address must be more than 3 characters",
-    "address.max": "Address must be less than 255 characters"
+    "address.max": "Address must be less than 255 characters",
+    "Orders List": "Orders List",
+    "Processing": "Processing",
+    "Delivering": "Delivering",
+    "Rejected": "Rejected",
+    "Detail": "Detail",
+    "Order Detail": "Order Detail",
+    "Information customer": "Information Customer",
+    "Note": "Note",
+    "time_order": "Time Order",
+    "time_update": "Updated At",
+    "Edit Status": "Edit Status",
+    "Submit": "Submit"
 }
