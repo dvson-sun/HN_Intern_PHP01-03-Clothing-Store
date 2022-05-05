@@ -20,6 +20,7 @@ class CheckLogin
         if (Auth::check()) {
             return $next($request);
         }
+        
         return redirect()->route('login')->with('messages', 'need_login');
     }
 }

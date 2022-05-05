@@ -40,9 +40,9 @@
                                 </p>
                                 <h5> {{ __('Status') }}:
                                     @if ($detail->status == config('app.status.stocking'))
-                                    <a class="btn btn-success mt-2">{{ __('Stocking') }}</a>
+                                        <a class="btn btn-success mt-2">{{ __('Stocking') }}</a>
                                     @else
-                                    <a class="btn btn-danger mt-2">{{ __('Out of Stock') }}</a>
+                                        <a class="btn btn-danger mt-2">{{ __('Out of stock') }}</a>
                                     @endif
                                 </h5>
                                 <h5>{{ __('Description') }}</h5>
@@ -71,8 +71,12 @@
                                             @endif
                                         @endforeach
                                     </select>
-                                    <input type="hidden" name="id" value="{{ $detail->id}}">
-                                    <p><button class="btn btn-primary btn-addtocart mt-3" type="submit"> {{ __('Add to cart') }}</button></p>
+                                    @if ($detail->status)
+                                        <input type="hidden" name="id" value="{{$detail->id}}">
+                                        <p><button class="btn btn-primary btn-addtocart mt-3" type="submit"> {{ __('Add to cart') }}</button></p>
+                                    @else
+                                        <p class="btn btn-danger mt-3" disabled> {{ __('Cannot add to cart') }}</p>
+                                    @endif
                             </div>
                         </div>
                         </form>
