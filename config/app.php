@@ -67,7 +67,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => env('APP_TIMEZONE', 'UTC'),
 
     /*
     |--------------------------------------------------------------------------
@@ -255,6 +255,11 @@ return [
         'outOfStock' => 0,
     ],
     
+    'status' => [
+        'stocking' => 1,
+        'outOfStock' => 0,
+    ],
+    
     'is_featured' => 1,
     
     'zero' => 0,
@@ -267,5 +272,16 @@ return [
     'updateCart' => [
         'success' => 'updated',
         'fail' => 'failed',
-    ]
+    ],
+    
+    'is_featured' => 1,
+    
+    'zero' => 0,
+
+    'qty' => [
+        'min' => 0,
+        'max' => 100,
+    ],
+
+    'comment' => 3,
 ];

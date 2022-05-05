@@ -7,9 +7,9 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LangController;
 use App\Http\Controllers\Store\CartController;
+use App\Http\Controllers\Store\CommentController;
 use App\Http\Controllers\Store\ProductStoreController;
 use App\Http\Controllers\Store\SiteController;
-use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -60,4 +60,6 @@ Route::group(['prefix' => '/'], function () {
         Route::get('/update/{id}/{qty}', 'update')->name('update');
         Route::get('/delete/{id}', 'delete')->name('delete');
     });
+
+    Route::post('/', [CommentController::class, 'comment'])->name('comment')->middleware('checkLogin');
 });

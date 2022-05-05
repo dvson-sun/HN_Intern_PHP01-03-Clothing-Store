@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Store;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Product;
 use App\Models\Size;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ProductStoreController extends Controller
@@ -52,7 +54,11 @@ class ProductStoreController extends Controller
             ->limit(config('app.limit.recommend'))
             ->get();
 
-        return view('store.product.detail')->with(compact('detail', 'products', 'sizes'));
+        $comments = Comment::with('user')->where('product_id', $detail->id)
+            ->orderBy('created_at', 'desc')
+            ->paginate(config('app.comment'));
+
+        return view('store.product.detail')->with(compact('detail', 'products', 'sizes', 'comments'));
     }
 
     public function category($slug)
