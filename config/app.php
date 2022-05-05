@@ -274,7 +274,7 @@ return [
         'fail' => 'failed',
     ],
     
-    'is_featured' => 1,
+    'is_featured' => '1',
     
     'zero' => 0,
 
