@@ -15,9 +15,9 @@
                                     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                                         <div class="carousel-inner">
                                             @foreach ($detail->images as $key => $image)
-                                            <div class="carousel-item @if ($key == config('app.zero')) active @endif">
-                                                <img class="d-block" src="../uploads/{{ $image->name }}" alt="Ảnh sản phẩm">
-                                            </div>
+                                                <div class="carousel-item @if ($key == config('app.zero')) active @endif">
+                                                    <img class="d-block" src="../uploads/{{ $image->name }}" alt="Ảnh sản phẩm">
+                                                </div>
                                             @endforeach
                                         </div>
                                         <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -40,9 +40,9 @@
                                 </p>
                                 <h5> {{ __('Status') }}:
                                     @if ($detail->status == config('app.status.stocking'))
-                                        <a class="btn btn-success mt-2">{{ __('Stocking') }}</a>
+                                    <a class="btn btn-success mt-2">{{ __('Stocking') }}</a>
                                     @else
-                                        <a class="btn btn-danger mt-2">{{ __('Out of stock') }}</a>
+                                    <a class="btn btn-danger mt-2">{{ __('Out of stock') }}</a>
                                     @endif
                                 </h5>
                                 <h5>{{ __('Description') }}</h5>
@@ -71,6 +71,11 @@
                                             @endif
                                         @endforeach
                                     </select>
+                                    @if (Session::has('messages')) 
+                                        <div class="alert alert-warning">
+                                            <div class="text-black">{{ __(Session::get('messages')) }}</div>
+                                        </div>
+                                    @endif
                                     @if ($detail->status)
                                         <input type="hidden" name="id" value="{{$detail->id}}">
                                         <p><button class="btn btn-primary btn-addtocart mt-3" type="submit"> {{ __('Add to cart') }}</button></p>
@@ -113,9 +118,9 @@
                         <h5>{{ __('Write Comment') }}:</h5>
                     </label>
                     @if ($errors->any())
-                        @foreach ($errors->all() as $error)
-                            <div class="alert alert-danger col-9">{{ __($error) }}</div>
-                        @endforeach
+                    @foreach ($errors->all() as $error)
+                    <div class="alert alert-danger col-9">{{ __($error) }}</div>
+                    @endforeach
                     @endif
                     <textarea class="form-control comment-input" id="exampleFormControlTextarea1" name="content" rows="3" placeholder="{{ __('input_comment') }}"></textarea>
                 </div>
@@ -153,23 +158,23 @@
         </div>
         <div class="row">
             @foreach ($products as $item)
-                <div class="col-md-3 text-center">
-                    <div class="product-entry">
-                        <div class="product-img" style="background-image: url(../uploads/{{ $item->images->first()['name'] }});">
-                            <div class="cart">
-                                <p>
-                                    <span><a href="{{ route('product.detail', $item->slug) }}"><i class="icon-eye"></i></a></span>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="desc">
-                            <h3><a href="{{ route('product.detail', $item->slug) }}">{{ $item->name }}</a></h3>
-                            <p class="price">
-                                <span>{{ number_format($detail->price) }} VND</span>
+            <div class="col-md-3 text-center">
+                <div class="product-entry">
+                    <div class="product-img" style="background-image: url(../uploads/{{ $item->images->first()['name'] }});">
+                        <div class="cart">
+                            <p>
+                                <span><a href="{{ route('product.detail', $item->slug) }}"><i class="icon-eye"></i></a></span>
                             </p>
                         </div>
                     </div>
+                    <div class="desc">
+                        <h3><a href="{{ route('product.detail', $item->slug) }}">{{ $item->name }}</a></h3>
+                        <p class="price">
+                            <span>{{ number_format($detail->price) }} VND</span>
+                        </p>
+                    </div>
                 </div>
+            </div>
             @endforeach
         </div>
     </div>

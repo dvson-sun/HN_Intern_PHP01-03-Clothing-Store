@@ -187,5 +187,7 @@
     "time_order": "Time Order",
     "time_update": "Updated At",
     "Edit Status": "Edit Status",
-    "Submit": "Submit"
+    "Submit": "Submit",
+    "The quantity of products in size :size is only :quantity": "The quantity of products in size :size is only :quantity",
+    "The quantity of product :product is only :quantity": "The quantity of product :product is only :quantity"
 }

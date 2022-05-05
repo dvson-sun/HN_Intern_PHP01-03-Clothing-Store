@@ -8,7 +8,9 @@ use App\Http\Requests\EditProductRequest;
 use App\Models\Category;
 use App\Models\Image;
 use App\Models\Product;
+use App\Models\Size;
 use App\Slug\Slug;
+use GuzzleHttp\Handler\Proxy;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -69,6 +71,12 @@ class ProductController extends Controller
 
             $product = Product::select('id', 'slug')->where('name', '=', $request->name)->first();
 
+            addSizes($product->id, config('app.size.s'), $request->s);
+            addSizes($product->id, config('app.size.m'), $request->m);
+            addSizes($product->id, config('app.size.l'), $request->l);
+            addSizes($product->id, config('app.size.xl'), $request->xl);
+            addSizes($product->id, config('app.size.xxl'), $request->xxl);
+
             foreach ($files as $key => $file) {
                 $imageName = $product->slug . '-' . time() . '.' . $file->extension();
                 $file->move(public_path('uploads'), $imageName);
@@ -103,7 +111,7 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $product = $this->findproductById($id);
+        $product = Product::with('size')->findOrFail($id);
         $category_id = $product->category_id;
         $parentCategories = Category::where('parent', 0)->get();
 
@@ -119,7 +127,7 @@ class ProductController extends Controller
      */
     public function update(EditProductRequest $request, $id)
     {
-        $product = Product::find($id);
+        $product = Product::findOrFail($id);
         $data = [];
         $files = $request->file('images');
         $product->update([
@@ -132,6 +140,32 @@ class ProductController extends Controller
             'status' => $request->status,
             'category_id' => $request->category_id,
         ]);
+        
+        $size_s = Size::where('product_id', $product->id)
+            ->where('size', config('app.size.s'))
+            ->first();
+        editSizes($size_s, $request->s);
+
+        $size_m = Size::where('product_id', $product->id)
+            ->where('size', config('app.size.m'))
+            ->first();
+        editSizes($size_m, $request->m);
+
+        $size_l = Size::where('product_id', $product->id)
+            ->where('size', config('app.size.l'))
+            ->first();
+        editSizes($size_l, $request->l);
+
+        $size_xl = Size::where('product_id', $product->id)
+            ->where('size', config('app.size.xl'))
+            ->first();
+        editSizes($size_xl, $request->xl);
+
+        $size_xxl = Size::where('product_id', $product->id)
+            ->where('size', config('app.size.xxl'))
+            ->first();
+        editSizes($size_xxl, $request->xxl);
+
         //Insert Images
         if ($request->hasFile("images")) {
             foreach ($files as $key => $file) {

@@ -42,6 +42,19 @@
                                 <label>{{ __('Price') }}</label>
                                 <input type="number" name="price" class="form-control" value="{{old('price')}}">
                             </div>
+                            <div class="form-group mt-3 qty-input">
+                                <h4>{{ __('Quantity_input') }}</h4>
+                                <label>{{ __('S') }}:</label>
+                                <input type="number" name="s" value="0" min="0">
+                                <label>{{ __('M') }}:</label>
+                                <input type="number" name="m" value="0" min="0">
+                                <label>{{ __('L') }}:</label>
+                                <input type="number" name="l" value="0" min="0">
+                                <label>{{ __('XL') }}:</label>
+                                <input type="number" name="xl" value="0" min="0">
+                                <label>{{ __('XLL') }}:</label>
+                                <input type="number" name="xxl" value="0" min="0">
+                            </div>
                             <div class="form-group">
                                 <label>{{ __('is_Featured') }}</label>
                                 <select name="is_featured" class="form-control">
