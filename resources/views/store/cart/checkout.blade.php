@@ -43,17 +43,17 @@
 							</div>
 							<div class="col-md-6">
 								<label for="Phone">{{ __('Phone')}}:</label>
-								<input name="phone" type="text" id="zippostalcode" class="form-control" placeholder=".....">
+								<input name="phone" type="text" id="zippostalcode" class="form-control" placeholder="....." value="{{ old('phone') }}">
 							</div>
 						</div>
 						<div class="col-md-12">
 							<div class="form-group">
 								<label for="fname">{{ __('Address')}}</label>
-								<input name="address" type="text" id="address" class="form-control" placeholder=".....">
+								<input name="address" type="text" id="address" class="form-control" placeholder="....." value="{{ old('address') }}">
 							</div>
 							<div class="form-group">
 								<label for="fname">{{ __('Note')}}</label>
-								<input name="note" type="text" id="note" class="form-control" placeholder=".....">
+								<input name="note" type="text" id="note" class="form-control" placeholder="....." value="{{ old('note') }}">
 							</div>
 						</div>
 					</div>

@@ -17,13 +17,13 @@ class SiteController extends Controller
     public function index()
     {
         $featuredProducts = Product::with('images')
-            ->orderBy('id', 'DESC')
-            ->where('is_Featured', config('app.is_featured'))
+            ->where('is_featured', config('app.is_featured'))
+            ->orderBy('id', 'desc')
             ->limit(config('app.limit.featured'))
             ->get();
 
         $newProducts = Product::with('images')
-            ->orderBy('id', 'DESC')
+            ->orderBy('id', 'desc')
             ->limit(config('app.limit.new'))
             ->get();
 
