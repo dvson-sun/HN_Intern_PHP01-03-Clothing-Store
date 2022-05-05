@@ -9,48 +9,47 @@
                 <div class="process-wrap">
                     <div class="process text-center active">
                         <p><span>01</span></p>
-                        <h3>{{ __('Cart')}}</h3>
+                        <h3>{{ __('Cart') }}</h3>
                     </div>
                     <div class="process text-center">
                         <p><span>02</span></p>
-                        <h3>{{ __('Payment')}}</h3>
+                        <h3>{{ __('Payment') }}</h3>
                     </div>
                     <div class="process text-center">
                         <p><span>03</span></p>
-                        <h3>{{ __('Complete')}}</h3>
+                        <h3>{{ __('Complete') }}</h3>
                     </div>
                 </div>
             </div>
         </div>
         @if (Cart::count() <= config('app.zero')) 
-            <div class="row row-pb-md">
-                <div class="col-md-12 col-md-offset-1">
-                    <div class="alert alert-primary"> 
-                    <span>{{ __('cart_check')}}</span>
-                    </div>
+        <div class="row row-pb-md">
+            <div class="col-md-12 col-md-offset-1">
+                <div class="alert alert-primary"> 
+                <span>{{ __('cart_check') }}</span>
                 </div>
             </div>
-        @else 
-        <div class="row row-pb-md">
+        </div>
+        @else <div class="row row-pb-md">
             <div class="col-md-12 col-md-offset-1">
                 <div class="product-name">
                     <div class="one-forth text-center">
-                        <span>{{ __('Product')}}</span>
+                        <span>{{ __('Product') }}</span>
                     </div>
                     <div class="one-eight text-center">
-                        <span>{{ __('Size')}}</span>
+                        <span>{{ __('Size') }}</span>
                     </div>
                     <div class="one-eight text-center">
-                        <span>{{ __('Price')}}</span>
+                        <span>{{ __('Price') }}</span>
                     </div>
                     <div class="one-eight text-center">
-                        <span>{{ __('Quantity')}}</span>
+                        <span>{{ __('Quantity') }}</span>
                     </div>
                     <div class="one-eight text-center">
-                        <span>{{ __('Total')}}</span>
+                        <span>{{ __('Total') }}</span>
                     </div>
                     <div class="one-eight text-center">
-                        <span>{{ __('Delete')}}</span>
+                        <span>{{ __('Delete') }}</span>
                     </div>
                 </div>
                 @if ($message = Session::get('messages'))
@@ -65,18 +64,18 @@
                                 <img class="img-thumbnail cart-img" src="../uploads/{{$item->options->image}}">
                             </div>
                             <div class="detail-buy">
-                                <h4>{{ __('Code')}}: {{$item->options->code}}</h4>
+                                <h4>{{ __('Code') }}: {{ $item->options->code }}</h4>
                                 <h5>{{$item->name}}</h5>
                             </div>
                         </div>
                         <div class="one-eight text-center">
                             <div class="display-tc">
-                                <span class="size">{{strtoupper($item->options->size) }}</span>
+                                <span class="size">{{ strtoupper($item->options->size) }}</span>
                             </div>
                         </div>
                         <div class="one-eight text-center">
                             <div class="display-tc">
-                                <span class="price">{{number_format($item->price)}}</span>
+                                <span class="price">{{ number_format($item->price) }}</span>
                             </div>
                         </div>
                         <div class="one-eight text-center">
@@ -103,11 +102,11 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                {{ __('are_you_sure')}}
+                                                {{ __('are_you_sure') }}
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Close')}}</button>
-                                                <a href="/cart/delete/{{$item->rowId}}" class="btn btn-primary"> {{ __('Save changes')}} </a>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Close') }}</button>
+                                                <a href="/cart/delete/{{$item->rowId}}" class="btn btn-primary"> {{ __('Save changes') }} </a>
                                             </div>
                                         </div>
                                     </div>
@@ -123,13 +122,13 @@
         <div class="col-md-12 col-md-offset-1">
             <div class="total-wrap">
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-7">
                     </div>
-                    <div class="col-md-4 col-md-push-1 text-center">
+                    <div class="col-3 col-md-push-1 text-center">
                         <div class="total">
                             <div class="grand-total">
-                                <p><strong>{{ __('Total') }}:</strong><span>{{$priceTotal}} VND</span></p>
-                                <a href="#" class="btn btn-primary">{{ __('Payment') }} <i class="icon-arrow-right-circle"></i></a>
+                                <p><strong>{{ __('Total') }}:</strong><span>{{ $priceTotal }} VND</span></p>
+                                <a href="{{ route('cart.checkout')}}" class="btn btn-primary">{{ __('Payment') }} <i class="icon-arrow-right-circle"></i></a>
                             </div>
                         </div>
                     </div>

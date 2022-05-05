@@ -59,7 +59,7 @@ class LoginController extends Controller
         if ($compare) {
             if (Auth::user()->role_id == config('auth.roles.admin')
                 && Auth::user()->status == config('auth.status.active')) {
-                return redirect()->route('admin');
+                return redirect()->route('admin.index');
             } else {
                 if (Auth::user()->status == config('auth.status.active')) {
                     return redirect()->route('home');
