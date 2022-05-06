@@ -2,8 +2,7 @@
 @section('title', 'Edit Product')
 @section('content')
 <!--main-->
-<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
-    <!--/.row-->
+<div class="col-10 main editproduct">
     <div class="row">
         <div class="col-xs-6 col-md-12 col-lg-12">
             <div class="panel panel-primary">
@@ -26,7 +25,7 @@
                                     <label>{{ __('Code') }}</label>
                                     <input type="text" name="code" class="form-control" value="{{$product->code}}">
                                 </div>
-                                <div class="col-md-8">
+                                <div class="col-12">
                                     <div class="form-group">
                                         <label>{{ __('Category') }}</label>
                                         <select class="form-control" name="category_id" id="">
@@ -42,6 +41,13 @@
                                     <div class="form-group">
                                         <label>{{ __('Price') }}</label>
                                         <input type="number" name="price" class="form-control" value="{{$product->price}}">
+                                    </div>
+                                    <div class="form-group mt-3 qty-input">
+                                        <h4>{{ __('Quantity_input') }}</h4>
+                                        @foreach ($product->size as $key => $item)
+                                            <label>{{ __(strtoupper($item->size)) }}:</label>
+                                            <input type="number" name="{{$item->size}}" value="{{$item->quantity}}" min="0">
+                                        @endforeach
                                     </div>
                                     <div class="form-group">
                                         <label>{{ __('is_Featured') }}</label>

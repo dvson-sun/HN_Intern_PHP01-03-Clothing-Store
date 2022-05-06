@@ -30,6 +30,11 @@ class EditProductRequest extends FormRequest
             'category_id' => 'required|exists:categories,id',
             'images.*' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048',
             'description' => 'required|string',
+            's' => 'required|numeric|min:0',
+            'm' => 'required|numeric|min:0',
+            'l' => 'required|numeric|min:0',
+            'xl' => 'required|numeric|min:0',
+            'xxl' => 'required|numeric|min:0',
         ];
     }
 
@@ -49,6 +54,21 @@ class EditProductRequest extends FormRequest
             'price.min' => trans('price.min'),
             'price.max' => trans('price.max'),
             'description.required' => trans('description.required'),
+            's.required' => trans('size.required'),
+            's.numeric' => trans('size.numeric'),
+            's.min' => trans('size.min'),
+            'm.required' => trans('size.required'),
+            'm.numeric' => trans('size.numeric'),
+            'm.min' => trans('size.min'),
+            'l.required' => trans('size.required'),
+            'l.numeric' => trans('size.numeric'),
+            'l.min' => trans('size.min'),
+            'xl.required' => trans('size.required'),
+            'xl.numeric' => trans('size.numeric'),
+            'xl.min' => trans('size.min'),
+            'xxl.required' => trans('size.required'),
+            'xxl.numeric' => trans('size.numeric'),
+            'xxl.min' => trans('size.min'),
         ];
     }
 }
