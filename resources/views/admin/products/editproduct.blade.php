@@ -59,8 +59,8 @@
                                     <div class="form-group">
                                         <label>{{ __('Status') }}</label>
                                         <select name="status" class="form-control">
-                                            <option @if ($product->status == config('app.status.true')) selected @endif value="1">{{ __('Stocking') }}</option>
-                                            <option @if ($product->status == config('app.status.false')) selected @endif value="0">{{ __('Out of stock') }}</option>
+                                            <option @if ($product->status == config('app.status.stocking')) selected @endif value="1">{{ __('Stocking') }}</option>
+                                            <option @if ($product->status == config('app.status.outOfStock')) selected @endif value="0">{{ __('Out of stock') }}</option>
                                         </select>
                                     </div>
                                 </div>

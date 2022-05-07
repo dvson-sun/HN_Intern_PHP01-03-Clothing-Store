@@ -255,11 +255,6 @@ return [
         'outOfStock' => 0,
     ],
     
-    'status' => [
-        'stocking' => 1,
-        'outOfStock' => 0,
-    ],
-    
     'is_featured' => 1,
     
     'zero' => 0,

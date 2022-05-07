@@ -177,6 +177,7 @@
     "address.min": "Address must be more than 3 characters",
     "address.max": "Address must be less than 255 characters",
     "Orders List": "Orders List",
+    "Pending": "Pending",
     "Processing": "Processing",
     "Delivering": "Delivering",
     "Rejected": "Rejected",
@@ -189,5 +190,6 @@
     "Edit Status": "Edit Status",
     "Submit": "Submit",
     "The quantity of products in size :size is only :quantity": "The quantity of products in size :size is only :quantity",
-    "The quantity of product :product is only :quantity": "The quantity of product :product is only :quantity"
+    "The quantity of product :product is only :quantity": "The quantity of product :product is only :quantity",
+    "Quantity_input": "Quantity of product"
 }

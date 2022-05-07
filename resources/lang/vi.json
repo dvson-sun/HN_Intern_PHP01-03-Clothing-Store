@@ -181,6 +181,7 @@
     "address.min": "Địa chỉ không được nhỏ hơn 3 ký tự",
     "address.max": "Địa chỉ không được lớn hơn 555 ký tự",
     "Orders List": "Danh sách đơn hàng",
+    "Pending": "Chưa xử lý",
     "Processing": "Đang xử lý",
     "Delivering": "Đang giao",
     "Rejected": "Từ chối",
@@ -193,5 +194,6 @@
     "Edit Status": "Thay đổi trạng thái đơn hàng",
     "Submit": "Xác nhận",
     "The quantity of products in size :size is only :quantity": "Số lượng sản phẩm size :size chỉ còn :quantity sản phẩm",
-    "The quantity of product :product is only :quantity": "Số lượng sản phẩm :product chỉ còn :quantity sản phẩm" 
+    "The quantity of product :product is only :quantity": "Số lượng sản phẩm :product chỉ còn :quantity sản phẩm",
+    "Quantity_input": "Nhập số lượng sản phẩm theo mỗi kích thước"
 }
