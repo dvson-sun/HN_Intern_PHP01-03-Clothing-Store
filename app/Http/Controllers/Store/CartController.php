@@ -9,6 +9,7 @@ use App\Models\Image;
 use App\Models\Order;
 use App\Models\OrderProduct;
 use App\Models\Product;
+use App\Models\Size;
 use Illuminate\Http\Request;
 use Cart;
 use Illuminate\Support\Facades\Auth;
@@ -30,6 +31,20 @@ class CartController extends Controller
         $qty = $request->quantity ? $request->quantity : 1;
         $size = $request->size;
         $product = Product::findorFail($request->id);
+
+        $prd_size = Size::where('product_id', $product->id)
+            ->where('size', $size)
+            ->first();
+
+        if ($qty > $prd_size->quantity) {
+            return redirect()
+                ->back()
+                ->with('messages', __('The quantity of products in size :size is only :quantity', [
+                    'size' => strtoupper($size),
+                    'quantity' => $prd_size->quantity
+                ]));
+        }
+
         $image = Image::where('product_id', $request->id)->first();
         Cart::add([
             'id' => $product->id,
@@ -69,6 +84,23 @@ class CartController extends Controller
         $data['cart'] = Cart::content();
         $data['priceTotal'] = Cart::priceTotal();
 
+        foreach ($data['cart'] as $item) {
+            $product = Product::where('id', $item->id)->first();
+            $size = Size::where('product_id', $item->id)
+                ->where('size', $item->options->size)
+                ->first();
+            if ($size->quantity < $item->qty) {
+                $item->qty = $size->quantity;
+
+                return redirect()
+                    ->back()
+                    ->with('messages', __('The quantity of product :product is only :quantity', [
+                        'product' => $product->name,
+                        'quantity' => $size->quantity
+                    ])) ;
+            }
+        }
+
         return view('store.cart.checkout', $data);
     }
 
@@ -94,6 +126,15 @@ class CartController extends Controller
                 'order_id' => $order->id,
                 'quantity' => $cart->qty,
                 'size' => $cart->options->size,
+            ]);
+
+            $size = Size::where('product_id', $cart->id)
+                ->where('size', $cart->options->size)
+                ->first();
+            $qty = $size->quantity - $cart->qty;
+            
+            $size->update([
+                'quantity' => $qty,
             ]);
         }
 

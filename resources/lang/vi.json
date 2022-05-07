@@ -191,5 +191,7 @@
     "time_order": "Ngày đặt",
     "time_update": "Cập nhật lần cuối",
     "Edit Status": "Thay đổi trạng thái đơn hàng",
-    "Submit": "Xác nhận"
+    "Submit": "Xác nhận",
+    "The quantity of products in size :size is only :quantity": "Số lượng sản phẩm size :size chỉ còn :quantity sản phẩm",
+    "The quantity of product :product is only :quantity": "Số lượng sản phẩm :product chỉ còn :quantity sản phẩm" 
 }

@@ -8,9 +8,9 @@
             <div class="panel panel-primary">
                 <div class="panel-body">
                     @if ($message = Session::get('success'))
-                        <div class="alert alert-success">
-                            <p>{{ __($message) }}</p>
-                        </div>
+                    <div class="alert alert-success">
+                        <p>{{ __($message) }}</p>
+                    </div>
                     @endif
                     <div class="bootstrap-table">
                         <div class="table-responsive">
@@ -21,6 +21,7 @@
                                         <th>{{ __('STT') }}</th>
                                         <th>{{ __('Product') }}</th>
                                         <th>{{ __('Price') }}</th>
+                                        <th>{{ __('Quantity') }}</th>
                                         <th>{{ __('Status') }}</th>
                                         <th>{{ __('Category')}}</th>
                                         <th width='18%'>{{ __('Action') }}</th>
@@ -40,6 +41,13 @@
                                                 </div>
                                             </td>
                                             <td> {{ number_format($product->price) }} VND</td>
+                                            <td>
+                                                <div>
+                                                    @foreach ($product->size as $key => $item)
+                                                        <p class="mb-0">{{ __(strtoupper($item->size)) }}: {{ $item->quantity }}</p>
+                                                    @endforeach
+                                                </div>
+                                            </td>
                                             <td>
                                                 @if ($product->status == 1)
                                                     <a class="btn btn-success" role="button">{{ __('Stocking') }}</a>
