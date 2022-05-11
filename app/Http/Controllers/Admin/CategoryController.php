@@ -81,6 +81,8 @@ class CategoryController extends Controller
     {
         $cat = $this->findCategoryById($id);
         $category_id = $cat->parent;
+
+        dd($cat->parent);
         $parentCategories = Category::where('parent', 0)->get();
         
         return view('admin.categories.editcategory')->with(compact('cat', 'category_id', 'parentCategories'));
