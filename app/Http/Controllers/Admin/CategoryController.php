@@ -5,13 +5,18 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateCategoryRequest;
 use App\Http\Requests\EditCategoryRequest;
-use App\Models\Category;
+use App\Repositories\Category\CategoryRepositoryInterface;
 use App\Slug\Slug;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    protected const PAGINATION_NUMBER = 15;
+    protected $categoryRepository;
+
+    public function __construct(CategoryRepositoryInterface $categoryRepository)
+    {
+        $this->categoryRepository = $categoryRepository;
+    }
 
     /**
      * Display a listing of the resource.
@@ -19,14 +24,9 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    protected function findCategoryById($id)
-    {
-        return Category::findOrFail($id);
-    }
-
     public function index()
     {
-        $categories =Category::orderBy('id', 'ASC')->paginate(self::PAGINATION_NUMBER);
+        $categories = $this->categoryRepository->getCategoryList();
 
         return view('admin.categories.listcategory')->with(compact('categories'));
     }
@@ -38,7 +38,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $parentCategories = Category::where('parent', 0)->get();
+        $parentCategories = $this->categoryRepository->getParentCategory();
         
         return view('admin.categories.addcategory')->with(compact('parentCategories'));
     }
@@ -51,13 +51,16 @@ class CategoryController extends Controller
      */
     public function store(CreateCategoryRequest $request)
     {
-        Category::create([
-            'name' => $request->name,
-            'slug' => Slug::getSlug($request->name),
-            'parent' => $request->parent,
-        ]);
+        $options['name'] = $request->name;
+        $options['parent'] = $request->parent;
+        $options['slug'] =  Slug::getSlug($options['name']);
+        $result = $this->categoryRepository->creatCategory($options);
 
-        return redirect()->route('admin.categories.index')->with('success', __('Add success'));
+        if ($result) {
+            return redirect()->route('admin.categories.index')->with('success', __('Add success'));
+        }
+
+        return back()->with('error', __('Add failed'));
     }
 
     /**
@@ -79,9 +82,10 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $cat = $this->findCategoryById($id);
+        
+        $cat = $this->categoryRepository->getCategory($id);
         $category_id = $cat->parent;
-        $parentCategories = Category::where('parent', 0)->get();
+        $parentCategories = $this->categoryRepository->getParentCategory();
         
         return view('admin.categories.editcategory')->with(compact('cat', 'category_id', 'parentCategories'));
     }
@@ -95,14 +99,16 @@ class CategoryController extends Controller
      */
     public function update(EditCategoryRequest $request, $id)
     {
-        $category = $this->findCategoryById($id);
-        $category->update([
-            'name' => $request->name,
-            'slug' => Slug::getSlug($request->name),
-            'parent' => $request->parent,
-        ]);
+        $category = $this->categoryRepository->getCategory($id);
+        $options['name'] = $request->name;
+        $options['parent'] = $request->parent;
+        $options['slug'] =  Slug::getSlug($options['name']);
 
-        return redirect()->route('admin.categories.index')->with('success', __('Edit success'));
+        if ($category->update($options)) {
+            return redirect()->route('admin.categories.index')->with('success', __('Edit success'));
+        }
+
+        return back()->with('error', __('Update failed'));
     }
 
     /**
@@ -113,7 +119,7 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $category = $this->findCategoryById($id);
+        $category = $this->categoryRepository->getCategory($id);
         $category->delete();
 
         return redirect()->route('admin.categories.index')->with('success', 'Delete success');

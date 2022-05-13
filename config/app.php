@@ -293,4 +293,12 @@ return [
         'cancel' => 5,
         'rejected' => 6,
     ],
+
+    'pagination' => [
+        'categoryPagination' => 15,
+    ],
+
+    'category' => [
+        'root' => 0,
+    ]
 ];

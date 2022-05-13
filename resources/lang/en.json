@@ -189,5 +189,7 @@
     "Edit Status": "Edit Status",
     "Submit": "Submit",
     "The quantity of products in size :size is only :quantity": "The quantity of products in size :size is only :quantity",
-    "The quantity of product :product is only :quantity": "The quantity of product :product is only :quantity"
+    "The quantity of product :product is only :quantity": "The quantity of product :product is only :quantity",
+    "Update failed": "Update failed",
+    "Add failed": "Add failed"
 }
