@@ -4,28 +4,21 @@ namespace App\Http\Controllers\Store;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Repositories\Product\ProductRepository;
 use Illuminate\Http\Request;
 
 class SiteController extends Controller
 {
-
-    protected function findProductById($id)
+    public function __construct(ProductRepository $productRepo)
     {
-        return Product::findOrFail($id);
+        $this->productRepo = $productRepo;
     }
 
     public function index()
     {
-        $featuredProducts = Product::with('images')
-            ->where('is_featured', config('app.is_featured'))
-            ->orderBy('id', 'desc')
-            ->limit(config('app.limit.featured'))
-            ->get();
+        $featuredProducts = $this->productRepo->getFeaturedProducts();
 
-        $newProducts = Product::with('images')
-            ->orderBy('id', 'desc')
-            ->limit(config('app.limit.new'))
-            ->get();
+        $newProducts = $this->productRepo->getNewProducts();
 
         return view('store.index')->with(compact('featuredProducts', 'newProducts'));
     }

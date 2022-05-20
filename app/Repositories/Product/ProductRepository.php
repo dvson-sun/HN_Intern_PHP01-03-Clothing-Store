@@ -38,4 +38,60 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     {
         return $this->model->with(['images'])->findOrFail($id);
     }
+
+    public function getProductShop()
+    {
+        return $this->model->with(['images'])
+            ->orderBy('id', 'desc')
+            ->paginate(config('app.limit.shop'));
+    }
+
+    public function getProductFilter($category_id, $start, $end)
+    {
+        return $this->model->with(['images'])
+            ->where('category_id', $category_id)
+            ->whereBetween('price', [$start, $end])
+            ->orderBy('id', 'DESC')
+            ->paginate(config('app.limit.shop'));
+    }
+
+    public function getProductBySlug($slug)
+    {
+        return $this->model->with(['images'])->where('slug', $slug)->first();
+    }
+
+    public function getProductRecommend($slug, $category_id)
+    {
+        return $this->model->with('images')
+            ->where('slug', '<>', $slug)
+            ->where('category_id', '=', $category_id)
+            ->orderBy('id', 'DESC')
+            ->limit(config('app.limit.recommend'))
+            ->get();
+    }
+
+    public function getProductByCategory($category_id)
+    {
+        return $this->model->with(['images'])
+            ->where('category_id', $category_id)
+            ->orderBy('id', 'desc')
+            ->paginate(config('app.limit.category'));
+    }
+
+    public function getFeaturedProducts()
+    {
+        return $this->model->with(['images'])
+            ->where('is_featured', config('app.is_featured'))
+            ->orderBy('id', 'desc')
+            ->limit(config('app.limit.featured'))
+            ->get();
+    }
+
+    public function getNewProducts()
+    {
+        return $this->model->with(['images'])
+            ->orderBy('id', 'desc')
+            ->limit(config('app.limit.new'))
+            ->get();
+    }
 }
