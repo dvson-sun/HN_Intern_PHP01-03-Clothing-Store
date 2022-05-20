@@ -6,7 +6,7 @@
     "Users": "Người dùng",
     "Categories": "Danh mục",
     "Orders": "Đơn hàng",
-    "Dashboard": "Tổng quan", 
+    "Dashboard": "Tổng quan",
     "Fullname": "Họ tên",
     "First Name": "Họ",
     "Last Name": "Tên",
@@ -195,5 +195,8 @@
     "The quantity of products in size :size is only :quantity": "Số lượng sản phẩm size :size chỉ còn :quantity sản phẩm",
     "The quantity of product :product is only :quantity": "Số lượng sản phẩm :product chỉ còn :quantity sản phẩm",
     "Update failed": "Cập nhật thất bại",
-    "Add failed": "Thêm thất bại"
+    "Add failed": "Thêm thất bại",
+    "Statistical chart": "Biểu đồ thống kê",
+    "Quantity_input": "Nhập số lượng",
+    "Pending": "Chưa xử lý"
 }

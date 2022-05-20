@@ -191,5 +191,8 @@
     "The quantity of products in size :size is only :quantity": "The quantity of products in size :size is only :quantity",
     "The quantity of product :product is only :quantity": "The quantity of product :product is only :quantity",
     "Update failed": "Update failed",
-    "Add failed": "Add failed"
+    "Add failed": "Add failed",
+    "Statistical chart": "Statistical chart",
+    "Quantity_input": "Quantity Input",
+    "Pending": "Pending"
 }

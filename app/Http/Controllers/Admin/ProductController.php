@@ -5,22 +5,28 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateProductRequest;
 use App\Http\Requests\EditProductRequest;
-use App\Models\Category;
-use App\Models\Image;
-use App\Models\Product;
-use App\Models\Size;
+use App\Repositories\Category\CategoryRepositoryInterface;
+use App\Repositories\Image\ImageRepositoryInterface;
+use App\Repositories\Product\ProductRepositoryInterface;
+use App\Repositories\Size\SizeRepositoryInterface;
 use App\Slug\Slug;
-use GuzzleHttp\Handler\Proxy;
-use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
     const PAGINATION_NUMBER = 10;
 
-    protected function findProductById($id)
-    {
-        return Product::findOrFail($id);
+    public function __construct(
+        ProductRepositoryInterface $productRepo,
+        CategoryRepositoryInterface $categoryRepo,
+        ImageRepositoryInterface $imageRepo,
+        SizeRepositoryInterface $sizeRepo
+    ) {
+        $this->productRepo = $productRepo;
+        $this->categoryRepo = $categoryRepo;
+        $this->imageRepo = $imageRepo;
+        $this->sizeRepo = $sizeRepo;
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -28,9 +34,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::with('images')
-            ->orderBy('id', 'DESC')
-            ->paginate(self::PAGINATION_NUMBER);
+        $products = $this->productRepo->getAllProductWithImages();
 
         return view('admin.products.listproduct')->with(compact('products'));
     }
@@ -42,7 +46,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $parentCategories = Category::where('parent', 0)->get();
+        $parentCategories = $this->categoryRepo->getParentCategory();
 
         return view('admin.products.addproduct')->with(compact('parentCategories'));
     }
@@ -58,7 +62,7 @@ class ProductController extends Controller
         $data = [];
         $files = $request->file('images');
         if ($request->hasFile('images')) {
-            Product::create([
+            $this->productRepo->create([
                 'name' => $request->name,
                 'code' => $request->code,
                 'slug' => Slug::getSlug($request->name),
@@ -69,13 +73,37 @@ class ProductController extends Controller
                 'category_id' => $request->category_id,
             ]);
 
-            $product = Product::select('id', 'slug')->where('name', '=', $request->name)->first();
+            $product = $this->productRepo->getProductByName($request->name);
 
-            addSizes($product->id, config('app.size.s'), $request->s);
-            addSizes($product->id, config('app.size.m'), $request->m);
-            addSizes($product->id, config('app.size.l'), $request->l);
-            addSizes($product->id, config('app.size.xl'), $request->xl);
-            addSizes($product->id, config('app.size.xxl'), $request->xxl);
+            $this->sizeRepo->insert([
+                'product_id' => $product->id,
+                'size' => config('app.size.s'),
+                'quantity' => $request->s
+            ]);
+
+            $this->sizeRepo->insert([
+                'product_id' => $product->id,
+                'size' => config('app.size.m'),
+                'quantity' => $request->m
+            ]);
+
+            $this->sizeRepo->insert([
+                'product_id' => $product->id,
+                'size' => config('app.size.l'),
+                'quantity' => $request->l
+            ]);
+
+            $this->sizeRepo->insert([
+                'product_id' => $product->id,
+                'size' => config('app.size.xl'),
+                'quantity' => $request->xl
+            ]);
+
+            $this->sizeRepo->insert([
+                'product_id' => $product->id,
+                'size' => config('app.size.xxl'),
+                'quantity' => $request->xxl
+            ]);
 
             foreach ($files as $key => $file) {
                 $imageName = $product->slug . '-' . time() . '.' . $file->extension();
@@ -86,7 +114,7 @@ class ProductController extends Controller
                 ];
             }
 
-            Image::insert($data);
+            $this->imageRepo->insert($data);
         }
 
         return redirect()->route('admin.products.index')->with('success', __('Add Success'));
@@ -111,9 +139,9 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $product = Product::with('size')->findOrFail($id);
+        $product = $this->productRepo->getProductWithImages($id);
         $category_id = $product->category_id;
-        $parentCategories = Category::where('parent', 0)->get();
+        $parentCategories = $this->categoryRepo->getParentCategory();
 
         return view('admin.products.editproduct')->with(compact('category_id', 'product', 'parentCategories'));
     }
@@ -127,56 +155,84 @@ class ProductController extends Controller
      */
     public function update(EditProductRequest $request, $id)
     {
-        $product = Product::findOrFail($id);
+        $product = $this->productRepo->getProduct($id);
         $data = [];
         $files = $request->file('images');
-        $product->update([
-            'name' => $request->name,
-            'code' => $request->code,
-            'slug' => Slug::getSlug($request->name),
-            'description' => $request->description,
-            'price' => $request->price,
-            'is_featured' => $request->is_featured,
-            'status' => $request->status,
-            'category_id' => $request->category_id,
-        ]);
-        
-        $size_s = Size::where('product_id', $product->id)
-            ->where('size', config('app.size.s'))
-            ->first();
-        editSizes($size_s, $request->s);
+        $this->productRepo->update(
+            $id,
+            [
+                'name' => $request->name,
+                'code' => $request->code,
+                'slug' => Slug::getSlug($request->name),
+                'description' => $request->description,
+                'price' => $request->price,
+                'is_featured' => $request->is_featured,
+                'status' => $request->status,
+                'category_id' => $request->category_id,
+            ]
+        );
 
-        $size_m = Size::where('product_id', $product->id)
-            ->where('size', config('app.size.m'))
-            ->first();
-        editSizes($size_m, $request->m);
+        $size_s = $this->sizeRepo->getSizeByProductId($product->id, config('app.size.s'));
+        $this->sizeRepo->update(
+            $size_s->id,
+            [
+                'product_id' => $product->id,
+                'size' => config('app.size.s'),
+                'quantity' => $request->s
+            ]
+        );
 
-        $size_l = Size::where('product_id', $product->id)
-            ->where('size', config('app.size.l'))
-            ->first();
-        editSizes($size_l, $request->l);
+        $size_m = $this->sizeRepo->getSizeByProductId($product->id, config('app.size.m'));
+        $this->sizeRepo->update(
+            $size_m->id,
+            [
+                'product_id' => $product->id,
+                'size' => config('app.size.m'),
+                'quantity' => $request->m
+            ]
+        );
 
-        $size_xl = Size::where('product_id', $product->id)
-            ->where('size', config('app.size.xl'))
-            ->first();
-        editSizes($size_xl, $request->xl);
+        $size_l = $this->sizeRepo->getSizeByProductId($product->id, config('app.size.l'));
+        $this->sizeRepo->update(
+            $size_l->id,
+            [
+                'product_id' => $product->id,
+                'size' => config('app.size.l'),
+                'quantity' => $request->l
+            ]
+        );
 
-        $size_xxl = Size::where('product_id', $product->id)
-            ->where('size', config('app.size.xxl'))
-            ->first();
-        editSizes($size_xxl, $request->xxl);
+        $size_xl = $this->sizeRepo->getSizeByProductId($product->id, config('app.size.xl'));
+        $this->sizeRepo->update(
+            $size_xl->id,
+            [
+                'product_id' => $product->id,
+                'size' => config('app.size.xl'),
+                'quantity' => $request->xl
+            ]
+        );
+
+        $size_xxl = $this->sizeRepo->getSizeByProductId($product->id, config('app.size.xxl'));
+        $this->sizeRepo->update(
+            $size_xxl->id,
+            [
+                'product_id' => $product->id,
+                'size' => config('app.size.xxl'),
+                'quantity' => $request->xxl
+            ]
+        );
 
         //Insert Images
         if ($request->hasFile("images")) {
             foreach ($files as $key => $file) {
-                $imageName = $product->slug.'-'.time().'.'.$file->extension();
+                $imageName = $product->slug . '-' . time() . '.' . $file->extension();
                 $file->move(public_path('images'), $imageName);
                 $data[$key] = [
                     'product_id' => $product->id,
                     'name' => $imageName,
                 ];
             }
-            Image::insert($data);
+            $this->imageRepo->insert($data);
         }
 
         return redirect()->route('admin.products.index')->with('success', 'Edit Success');
@@ -190,7 +246,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $product = $this->findproductById($id);
+        $product = $this->productRepo->getProduct($id);
         $product->delete();
 
         return redirect()->route('admin.products.index')->with('success', 'Delete success');
