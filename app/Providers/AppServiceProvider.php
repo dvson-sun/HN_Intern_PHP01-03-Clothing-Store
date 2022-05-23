@@ -8,6 +8,10 @@ use App\Repositories\Comment\CommentRepository;
 use App\Repositories\Comment\CommentRepositoryInterface;
 use App\Repositories\Image\ImageRepository;
 use App\Repositories\Image\ImageRepositoryInterface;
+use App\Repositories\Order\OrderRepository as OrderOrderRepository;
+use App\Repositories\Order\OrderRepositoryInterface;
+use App\Repositories\OrderProduct\OrderProductRepository;
+use App\Repositories\OrderProduct\OrderProductRepositoryInterface;
 use App\Repositories\Product\ProductRepository;
 use App\Repositories\Product\ProductRepositoryInterface;
 use App\Repositories\Size\SizeRepository;
@@ -32,6 +36,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(RoleRepositoryInterface::class, RoleRepository::class);
         $this->app->singleton(CommentRepositoryInterface::class, CommentRepository::class);
         $this->app->singleton(UserRepositoryInterface::class, UserRepository::class);
+        $this->app->singleton(OrderRepositoryInterface::class, OrderOrderRepository::class);
+        $this->app->singleton(OrderProductRepositoryInterface::class, OrderProductRepository::class);
     }
 
     /**

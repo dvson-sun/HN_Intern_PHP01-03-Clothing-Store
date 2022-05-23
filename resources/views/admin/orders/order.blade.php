@@ -55,6 +55,9 @@
                                 </table>
                             </div>
                         </div>
+                        <div align='right'>
+                            {{ $orders->links('pagination::bootstrap-4') }}
+                        </div>
                         <div class="clearfix"></div>
                     </div>
                 </div>
