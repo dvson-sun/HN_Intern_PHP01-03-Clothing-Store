@@ -13,4 +13,6 @@ interface CategoryRepositoryInterface extends RepositoryInterface
     public function getParentCategory();
 
     public function creatCategory($options);
+
+    public function getCategoryBySlug($slug);
 }

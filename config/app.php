@@ -297,6 +297,7 @@ return [
     'pagination' => [
         'categoryPagination' => 15,
         'productPagination' => 10,
+        'userPagination' => 10,
     ],
 
     'category' => [

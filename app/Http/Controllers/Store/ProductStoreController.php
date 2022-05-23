@@ -4,70 +4,67 @@ namespace App\Http\Controllers\Store;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
-use App\Models\Comment;
 use App\Models\Product;
 use App\Models\Size;
-use App\Models\User;
+use App\Repositories\Category\CategoryRepositoryInterface;
+use App\Repositories\Comment\CommentRepositoryInterface;
+use App\Repositories\Product\ProductRepositoryInterface;
+use App\Repositories\Size\SizeRepositoryInterface;
 use Illuminate\Http\Request;
 
 class ProductStoreController extends Controller
 {
+    public function __construct(
+        CommentRepositoryInterface $commentRepo,
+        CategoryRepositoryInterface $categoryRepo,
+        ProductRepositoryInterface $productRepo,
+        SizeRepositoryInterface $sizeRepo
+    ) {
+        $this->commentRepo = $commentRepo;
+        $this->categoryRepo = $categoryRepo;
+        $this->productRepo = $productRepo;
+        $this->sizeRepo = $sizeRepo;
+    }
+
     public function shop()
     {
-        $parentCategories = Category::where('parent', 0)->get();
+        $parentCategories = $this->categoryRepo->getParentCategory();
 
-        $products = Product::with('images')
-                ->orderBy('id', 'desc')
-                ->paginate(config('app.limit.shop'));
+        $products = $this->productRepo->getProductShop();
 
         return view('store.product.shop')->with(compact('parentCategories', 'products'));
     }
-    
+
     public function filter(Request $request)
     {
         $category_id = $request->category;
         $start = $request->start;
         $end = $request->end;
 
-        $products = Product::with('images')
-                ->where('category_id', $category_id)
-                ->whereBetween('price', [$start, $end])
-                ->orderBy('id', 'DESC')
-                ->paginate(config('app.limit.shop'));
+        $products = $this->productRepo->getProductFilter($category_id, $start, $end);
 
-        $parentCategories = Category::where('parent', 0)->get();
-    
+        $parentCategories = $this->categoryRepo->getParentCategory();
+
         return view('store.product.shop')->with(compact('products', 'parentCategories'));
     }
 
     public function detail($slug)
     {
-        $detail = Product::with('images')->where('slug', $slug)->first();
+        $detail = $this->productRepo->getProductBySlug($slug);
 
-        $sizes = Size::where('product_id', $detail->id)
-            ->where('quantity', '>', 0)
-            ->get();
+        $sizes = $this->sizeRepo->getSizeExistByProductId($detail->id);
 
-        $products = Product::with('images')->where('slug', '<>', $slug)
-            ->where('category_id', '=', $detail->category_id)
-            ->orderBy('id', 'DESC')
-            ->limit(config('app.limit.recommend'))
-            ->get();
+        $products = $this->productRepo->getProductRecommend($slug, $detail->category_id);
 
-        $comments = Comment::with('user')->where('product_id', $detail->id)
-            ->orderBy('created_at', 'desc')
-            ->paginate(config('app.comment'));
+        $comments = $this->commentRepo->getCommentByProduct($detail->id);
 
         return view('store.product.detail')->with(compact('detail', 'products', 'sizes', 'comments'));
     }
 
     public function category($slug)
     {
-        $category = Category::where('slug', $slug)->first();
-        $products = Product::with('images')
-                ->where('category_id', $category->id)
-                ->orderBy('id', 'desc')
-                ->paginate(config('app.limit.category'));
+        $category = $this->categoryRepo->getCategoryBySlug($slug);
+        $products = $this->productRepo->getProductByCategory($category->id);
 
         return view('store.product.category')->with(compact('products', 'category'));
     }

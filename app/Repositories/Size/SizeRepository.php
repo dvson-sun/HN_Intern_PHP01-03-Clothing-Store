@@ -32,4 +32,12 @@ class SizeRepository extends BaseRepository implements SizeRepositoryInterface
             ->where('size', $size)
             ->first();
     }
+
+    public function getSizeExistByProductId($id)
+    {
+        return $this->model
+            ->where('product_id', $id)
+            ->where('quantity', '>', config('app.zero'))
+            ->get();
+    }
 }
