@@ -25,4 +25,9 @@ class ImageRepository extends BaseRepository implements ImageRepositoryInterface
     {
         return $this->model->findOrFail($id)->name;
     }
+
+    public function getFirstImage($id)
+    {
+        return $this->model->where('product_id', $id)->first();
+    }
 }

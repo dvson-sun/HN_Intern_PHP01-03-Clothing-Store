@@ -3,27 +3,33 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Order;
-use App\Models\OrderProduct;
+use App\Repositories\Order\OrderRepositoryInterface;
+use App\Repositories\OrderProduct\OrderProductRepositoryInterface;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-    protected const PAGINATION_NUMBER = 10;
+    protected $orderRepo;
+
+    public function __construct(
+        OrderRepositoryInterface $orderRepo,
+        OrderProductRepositoryInterface $orderProductRepo
+    ) {
+        $this->orderRepo = $orderRepo;
+        $this->orderProductRepo = $orderProductRepo;
+    }
 
     public function index()
     {
-        $orders = Order::with('user')
-            ->orderBy('created_at', 'desc')
-            ->paginate(self::PAGINATION_NUMBER);
+        $orders = $this->orderRepo->getAllWithUsers();
 
         return view('admin.orders.order')->with(compact('orders'));
     }
 
     public function show($id)
     {
-        $order = Order::with('user')->findOrFail($id);
-        $order_products = OrderProduct::where('order_id', $order->id)->get();
+        $order = $this->orderRepo->getOrderWithUser($id);
+        $order_products = $this->orderProductRepo->getOrderProduct($id);
         $products = $order->products;
 
         return view('admin.orders.detailorder')->with(compact('order', 'order_products', 'products'));
@@ -31,7 +37,7 @@ class OrderController extends Controller
 
     public function update(Request $request)
     {
-        $order = Order::findOrFail($request->id);
+        $order = $this->orderRepo->getOrderById($request->id);
         $order->status = $request->status;
         $order->update();
 
