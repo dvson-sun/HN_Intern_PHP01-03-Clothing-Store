@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LangController;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\Store\CartController;
 use App\Http\Controllers\Store\CommentController;
 use App\Http\Controllers\Store\ProductStoreController;
@@ -72,3 +73,5 @@ Route::group(['prefix' => '/'], function () {
 
     Route::post('/', [CommentController::class, 'comment'])->name('comment')->middleware('checkLogin');
 });
+
+Route::get('/test', [MailController::class, 'test'])->name('test');

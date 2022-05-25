@@ -57,4 +57,17 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
 
         return json_encode(array_merge($initChart));
     }
+
+    public function getSales()
+    {
+        $time = Carbon::now()->subWeek(1);        
+        $ordersList = $this->model->where('created_at', '>', $time )->get();
+        $total = 0;
+
+        foreach ($ordersList as $item) {
+            $total += $item->total_price;
+        }
+
+        return $total;
+    }
 }

@@ -11,4 +11,6 @@ interface UserRepositoryInterface extends RepositoryInterface
     public function getAllUser();
 
     public function updateStatusUser($id, $data);
+
+    public function getAdmins();
 }

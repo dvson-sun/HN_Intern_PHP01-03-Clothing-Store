@@ -34,7 +34,7 @@ class AdminController extends Controller
         $data = [];
         $data['product'] = $this->productRepo->getAll()->count();
         $data['order'] = $this->orderRepo->getAll()->count();
-        $data['user'] = $this->userRepo->getAll()->count();
+        $data['user'] = $this->orderRepo->getAll()->count();
         $data['category'] = $this->categoryRepo->getAll()->count();
 
         $year = Carbon::now()->year;

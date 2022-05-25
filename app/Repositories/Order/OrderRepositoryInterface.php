@@ -15,4 +15,6 @@ interface OrderRepositoryInterface extends RepositoryInterface
     public function getOrderbyUserId($id);
 
     public function getStatistic();
+    
+    public function getSales();
 }

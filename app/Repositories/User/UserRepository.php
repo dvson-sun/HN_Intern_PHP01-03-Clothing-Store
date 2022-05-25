@@ -29,4 +29,9 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         $user->status = $data;
         $user->update();
     }
+
+    public function getAdmins()
+    {
+        return $this->model->where('role_id', config('auth.roles.admin'))->get();
+    }
 }
