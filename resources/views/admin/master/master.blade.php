@@ -15,6 +15,8 @@
 			@yield('content')
 		</div>
 	</div>
+	<script src="{{ asset('js/script.js') }}"></script>
+	<script src="{{ asset('js/Chart.js') }}"></script>
 </body>
 
 </html>

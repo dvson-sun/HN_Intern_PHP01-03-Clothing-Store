@@ -5,6 +5,7 @@ namespace App\Repositories\Order;
 use App\Models\Order;
 use App\Repositories\BaseRepository;
 use App\Repositories\Order\OrderRepositoryInterface;
+use Carbon\Carbon;
 
 class OrderRepository extends BaseRepository implements OrderRepositoryInterface
 {
@@ -36,5 +37,24 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
         return $this->model->where('user_id', $id)
             ->orderBy('created_at', 'desc')
             ->first();
+    }
+
+    public function getStatistic()
+    {
+        $year = Carbon::now()->year;
+        $initChart = config('init-chart.data');
+        $orderList = $this->model->where('status', config('app.orderStatus.complete'))
+            ->where('updated_at', 'like', "%" . $year . "%")
+            ->get();
+
+        foreach ($initChart as $month => $value) {
+            foreach ($orderList as $item) {
+                if ($item->created_at->format('M') == $month) {
+                    $initChart[$month] += $item->total_price;
+                }
+            }
+        }
+
+        return json_encode(array_merge($initChart));
     }
 }
