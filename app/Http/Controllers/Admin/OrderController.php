@@ -38,9 +38,12 @@ class OrderController extends Controller
     public function update(Request $request)
     {
         $order = $this->orderRepo->getOrderById($request->id);
-        $order->status = $request->status;
-        $order->update();
+        $options['status'] = $request->status;
 
-        return redirect()->route('admin.orders.show', $order->id)->with('success', 'Update success');
+        if ($order->update($options)) {
+            return redirect()->route('admin.orders.show', $order->id)->with('success', __('Update success'));
+        }
+
+        return back()->with('error', __('Update failed'));
     }
 }
