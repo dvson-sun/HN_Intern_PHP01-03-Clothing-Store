@@ -11,6 +11,7 @@ use App\Http\Controllers\Store\CartController;
 use App\Http\Controllers\Store\CommentController;
 use App\Http\Controllers\Store\ProductStoreController;
 use App\Http\Controllers\Store\SiteController;
+use App\Http\Controllers\Store\UserOrderController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -49,6 +50,9 @@ Route::prefix('admin')->name('admin.')->middleware('checkAdmin')->group(function
 
 Route::group(['prefix' => '/'], function () {
     Route::get('/home', [SiteController::class, 'index'])->name('home');
+    Route::get('/orderdetail/{id}', [UserOrderController::class, 'orderdetail'])
+        ->name('orderdetail')
+        ->middleware('checkLogin');
     Route::prefix('product')->name('product.')->group(function () {
         Route::get('/', [ProductStoreController::class, 'shop'])->name('shop');
         Route::get('/search', [ProductStoreController::class, 'filter'])->name('search');
@@ -72,3 +76,6 @@ Route::group(['prefix' => '/'], function () {
 
     Route::post('/', [CommentController::class, 'comment'])->name('comment')->middleware('checkLogin');
 });
+
+Route::get('/notification/read/{id}', [OrderController::class, 'readNotification'])->name('read.notification');
+Route::get('/notification/readall', [OrderController::class, 'readAllNotification'])->name('readall.notification');

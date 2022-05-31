@@ -39,6 +39,17 @@
     <!-- Main -->
     <script src="{{ asset('store/js/main.js') }}"></script>
 
+    <script src="{{ asset('js/noti.js') }}"></script>
+
+    <script>
+        window.translationJsons = {!! $translationJson !!};
+    </script>
+
+    <script>
+        if({{ Auth::check() }}){
+            window.user = {{ Auth::id() }};
+        }
+    </script>
 </body>
 
 </html>

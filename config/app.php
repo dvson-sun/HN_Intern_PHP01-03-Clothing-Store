@@ -161,7 +161,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-
+        App\Providers\TranslationServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -171,11 +171,11 @@ return [
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
+        App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\SlugServiceProvider::class,
-
+        App\Providers\TranslationServiceProvider::class,
     ],
 
     /*
@@ -231,6 +231,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'slug' => \App\Slug\Facade\SlugFacade::class,
+        'Pusher' => Pusher\Pusher::class,
         
     ],
 
