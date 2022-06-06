@@ -195,5 +195,14 @@
     "Statistical chart": "Statistical chart",
     "Quantity_input": "Quantity Input",
     "Pending": "Pending",
-    "Revenue statistics chart in :year": "Revenue statistics chart in :year"
+    "Revenue statistics chart in :year": "Revenue statistics chart in :year",
+    "recent": "Recent",
+    "mark_all_as_read": "Mark all as read",
+    "your_order": "Your order",
+    "noti_pending": "has entered Pending status",
+    "noti_processing": "is being Processed",
+    "noti_delivering": "is being delivered",
+    "noti_complete": "has been completed",
+    "noti_cancel": "has been cancelled",
+    "noti_rejected": "is in Rejected status"
 }

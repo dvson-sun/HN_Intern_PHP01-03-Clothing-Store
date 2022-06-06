@@ -85,39 +85,4 @@ class OrderControllerTest extends TestCase
         $this->assertArrayHasKey('order_products', $view->getData());
         $this->assertArrayHasKey('products', $view->getData());
     }
-
-    public function testUpdateSuccess()
-    {
-        $id = 1;
-        $order = m::mock(Order::class)->makePartial();
-        $data = [
-            'id' => $id,
-            'status' => 2,
-        ];
-        $request = new Request($data);
-        $this->orderRepo->shouldReceive('getOrderById')->with($data['id'])->andReturn($order);
-        $this->orderRepo->shouldReceive('update')->with($data)->andReturn(true);
-        $response = $this->controller->update($request);
-
-        $this->assertInstanceOf(RedirectResponse::class, $response);
-        $this->assertEquals(302, $response->getStatusCode());
-    }
-
-    public function testUpdateFailed()
-    {
-        $id = 1;
-        $order = m::mock(Order::class)->makePartial();
-        $data = [
-            'id' => $id,
-            'status' => 0,
-        ];
-        $request = new Request($data);
-        $this->orderRepo->shouldReceive('getOrderById')->with($data['id'])->andReturn($order);
-        $this->orderRepo->shouldReceive('update')->with($data)->andReturn(false);
-
-        $response = $this->controller->update($request);
-        $this->assertInstanceOf(RedirectResponse::class, $response);
-        $this->assertEquals(302, $response->getStatusCode());
-        $this->assertArrayHasKey('error', session()->all());
-    }
 }
