@@ -22,8 +22,8 @@ $(document).ready(function () {
         let pending = parseInt($("#notification").find(".pending").html());
 
         if (Number.isNaN(pending)) {
-            $("#notification").append(
-                '<span class="pending badge bg-primary badge-number">1</span>'
+            $(".notification-num").append(
+                '<span class="pending badge btn-primary badge-number">1</span>'
             );
         } else {
             $(".pending")
