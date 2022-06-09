@@ -24,7 +24,7 @@
                             @if (Route::has('login'))
                             @auth
                                 <li class="has-dropdown">
-                                    <li class="nav-link text-primary" href="#" id="notification" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <li class="nav-link text-primary notification-num" href="#" id="notification" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fa fa-bell" aria-hidden="true"></i>
                                         @if (auth()->user()->unreadNotifications->count() > 0)
                                             <span class="pending badge btn-primary badge-number">{{ auth()->user()->unreadNotifications->count() }}</span>
