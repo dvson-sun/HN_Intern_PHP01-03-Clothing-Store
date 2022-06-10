@@ -49,7 +49,7 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
 
         foreach ($initChart as $month => $value) {
             foreach ($orderList as $item) {
-                if ($item->created_at->format('M') == $month) {
+                if ($item->updated_at->format('M') == $month) {
                     $initChart[$month] += $item->total_price;
                 }
             }
