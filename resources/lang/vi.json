@@ -208,5 +208,6 @@
     "noti_delivering": " đang giao",
     "noti_complete": "đã giao thành công",
     "noti_cancel": "đã hủy",
-    "noti_rejected": "chuyển sang trạng thái Từ chối nhận"
+    "noti_rejected": "chuyển sang trạng thái Từ chối nhận",
+    "image.mimes": "Ảnh phải đúng định dạng jpg, png, jpeg"  
 }

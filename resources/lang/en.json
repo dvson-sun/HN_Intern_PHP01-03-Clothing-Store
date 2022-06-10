@@ -204,5 +204,6 @@
     "noti_delivering": "is being delivered",
     "noti_complete": "has been completed",
     "noti_cancel": "has been cancelled",
-    "noti_rejected": "is in Rejected status"
+    "noti_rejected": "is in Rejected status",
+    "images.mimes": " Images must be a file of type png, jpg, jpeg"
 }

@@ -28,7 +28,8 @@ class CreateProductRequest extends FormRequest
             'code' => 'required|string|unique:products|min:1|max:24',
             'price' => 'required|numeric|min:0',
             'category_id' => 'required|exists:categories,id',
-            'images.*' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+            'images' => 'required',
+            'images.*' => 'mimes:png,jpg,jpeg',
             'description' => 'required|string',
             's' => 'required|numeric|min:0',
             'm' => 'required|numeric|min:0',
@@ -53,7 +54,6 @@ class CreateProductRequest extends FormRequest
             'price.required' => trans('price.required'),
             'price.min' => trans('price.min'),
             'price.max' => trans('price.max'),
-            'images.required' => trans('images.required'),
             'description.required' => trans('description.required'),
             's.required' => trans('size.required'),
             's.numeric' => trans('size.numeric'),
@@ -70,6 +70,8 @@ class CreateProductRequest extends FormRequest
             'xxl.required' => trans('size.required'),
             'xxl.numeric' => trans('size.numeric'),
             'xxl.min' => trans('size.min'),
+            'images.required' => trans('images.required'),
+            'images.*.mimes' => trans('image.mimes'),
         ];
     }
 }

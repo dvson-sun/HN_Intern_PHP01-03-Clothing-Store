@@ -61,7 +61,7 @@ class ProductController extends Controller
     {
         $data = [];
         $files = $request->file('images');
-        if ($request->hasFile('images')) {
+        if ($request->has('images')) {
             $this->productRepo->create([
                 'name' => $request->name,
                 'code' => $request->code,
