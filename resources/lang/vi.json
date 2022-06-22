@@ -209,5 +209,6 @@
     "noti_complete": "đã giao thành công",
     "noti_cancel": "đã hủy",
     "noti_rejected": "chuyển sang trạng thái Từ chối nhận",
-    "image.mimes": "Ảnh phải đúng định dạng jpg, png, jpeg"  
+    "image.mimes": "Ảnh phải đúng định dạng jpg, png, jpeg",
+    "not admin": "Chỉ admin mới được thực hiện hành động này"
 }

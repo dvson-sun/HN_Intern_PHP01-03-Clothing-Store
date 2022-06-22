@@ -33,21 +33,22 @@ class AuthController extends Controller
                 $token = $user->createToken('authToken')->plainTextToken;
 
                 return response()->json([
-                    'status_code' => 200,
+                    'status' => 'success',
+                    'user_id' => $user->id,
                     'access_token' => $token,
                     'token_type' => 'Bearer',
-                ]);
+                ], 200);
             }
 
             return response()->json([
-                'status_code' => 500,
+                'status' => 'error',
                 'message' => __('login-fail'),
-            ]);
+            ], 500);
         } catch (\Exception $exception) {
             return response()->json([
-                'status_code' => 500,
+                'status' => 'error',
                 'error' => $exception->getMessage(),
-            ]);
+            ], 500);
         }
     }
 
