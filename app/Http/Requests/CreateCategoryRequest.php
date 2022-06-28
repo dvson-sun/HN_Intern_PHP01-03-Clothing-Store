@@ -3,9 +3,11 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
 
 class CreateCategoryRequest extends FormRequest
 {
+    public $validator = null;
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -25,7 +27,7 @@ class CreateCategoryRequest extends FormRequest
     {
         return [
             'name' => 'required|string|unique:categories',
-            'parent' => 'required',
+            'parent' => 'required|exists:categories,id',
         ];
     }
 
@@ -36,5 +38,10 @@ class CreateCategoryRequest extends FormRequest
             'name.unique' => trans('name.unique'),
             'parent.required' => trans('parent.required'),
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        $this->validator = $validator;
     }
 }
