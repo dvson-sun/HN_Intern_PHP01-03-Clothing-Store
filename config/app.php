@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'Clothing Store'),
 
     /*
     |--------------------------------------------------------------------------
@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'http://localhost:8000'),
 
     'asset_url' => env('ASSET_URL', null),
 
@@ -67,7 +67,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => env('APP_TIMEZONE', 'UTC'),
 
     /*
     |--------------------------------------------------------------------------
@@ -80,7 +80,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'vi',
 
     /*
     |--------------------------------------------------------------------------
@@ -93,7 +93,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => 'vi',
 
     /*
     |--------------------------------------------------------------------------
@@ -161,7 +161,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-
+        App\Providers\TranslationServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -171,10 +171,11 @@ return [
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
+        App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
+        App\Providers\SlugServiceProvider::class,
+        App\Providers\TranslationServiceProvider::class,
     ],
 
     /*
@@ -229,7 +230,79 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
+        'slug' => \App\Slug\Facade\SlugFacade::class,
+        'Pusher' => Pusher\Pusher::class,
+        
     ],
 
+    'limit' => [
+        'featured' => 4,
+        'new' => 8,
+        'recommend' => 4,
+        'category'=> 8,
+        'shop' => 6,
+    ],
+
+    'size' => [
+        's' => 's',
+        'm' => 'm',
+        'l' => 'l',
+        'xl' => 'xl',
+        'xxl' => 'xxl',
+    ],
+
+    'status' => [
+        'stocking' => 1,
+        'outOfStock' => 0,
+    ],
+    
+    'status' => [
+        'stocking' => 1,
+        'outOfStock' => 0,
+    ],
+    
+    'is_featured' => 1,
+    
+    'zero' => 0,
+
+    'qty' => [
+        'min' => 0,
+        'max' => 100,
+    ],
+
+    'updateCart' => [
+        'success' => 'updated',
+        'fail' => 'failed',
+    ],
+    
+    'is_featured' => '1',
+    
+    'zero' => 0,
+
+    'qty' => [
+        'min' => 0,
+        'max' => 100,
+    ],
+
+    'comment' => 3,
+
+    'orderStatus' => [
+        'pending' => 1,
+        'processing' => 2,
+        'delivering' => 3,
+        'complete' => 4,
+        'cancel' => 5,
+        'rejected' => 6,
+    ],
+
+    'pagination' => [
+        'categoryPagination' => 15,
+        'productPagination' => 10,
+        'userPagination' => 10,
+        'orderPagination' => 10,
+    ],
+
+    'category' => [
+        'root' => 0,
+    ]
 ];
